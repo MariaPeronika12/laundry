@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bilas Laundry – Cuci, Setrika, Antar</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="#">Bilas Laundry</a>
+    <nav><a href="#harga">Harga</a><a href="#cara">Cara kerja</a><a href="#kontak">Kontak</a></nav>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1>Baju bersih, wangi, sampai di pintu rumah.</h1>
+      <p>Kami jemput cucian Anda, cuci dengan deterjen hypoallergenic, lalu antar kembali tepat waktu. Hitung biayanya dulu, pesan lewat WhatsApp.</p>
+    </div>
+    <div class="calc" id="hitung">
+      <h2>Hitung biaya cucian</h2>
+      <label for="layanan">Layanan</label>
+      <select id="layanan">
+        <option value="7000">Cuci kiloan reguler (2 hari) – Rp7.000/kg</option>
+        <option value="9000" selected>Cuci + setrika reguler (2 hari) – Rp9.000/kg</option>
+        <option value="14000">Cuci + setrika ekspres (6 jam) – Rp14.000/kg</option>
+        <option value="5000">Setrika saja (2 hari) – Rp5.000/kg</option>
+      </select>
+      <label for="berat">Perkiraan berat (kg)</label>
+      <input id="berat" type="number" min="1" max="50" step="0.5" value="4" inputmode="decimal">
+      <label class="check"><input id="antar" type="checkbox" checked> Antar-jemput ke rumah</label>
+      <div class="total"><span>Perkiraan total</span><strong id="total">Rp0</strong></div>
+      <p class="note" id="ongkir"></p>
+      <a class="btn" id="wa" href="#" target="_blank" rel="noopener">Pesan lewat WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<section id="harga" class="alt"><div class="wrap">
+  <h2>Daftar harga</h2>
+  <p class="sub">Harga sudah termasuk deterjen dan pewangi. Berat ditimbang ulang saat cucian dijemput.</p>
+  <div class="scroll"><table>
+    <tr><th>Layanan</th><th>Durasi</th><th>Harga</th></tr>
+    <tr><td>Cuci kiloan</td><td>2 hari</td><td>Rp7.000/kg</td></tr>
+    <tr><td>Cuci + setrika</td><td>2 hari</td><td>Rp9.000/kg</td></tr>
+    <tr><td>Cuci + setrika ekspres</td><td>6 jam</td><td>Rp14.000/kg</td></tr>
+    <tr><td>Setrika saja</td><td>2 hari</td><td>Rp5.000/kg</td></tr>
+    <tr><td>Selimut / bedcover</td><td>3 hari</td><td>Rp25.000/pcs</td></tr>
+    <tr><td>Antar-jemput</td><td>–</td><td>Gratis min. 5 kg, selain itu Rp5.000</td></tr>
+  </table></div>
+</div></section>
+
+<section id="cara"><div class="wrap">
+  <h2>Cara kerjanya</h2>
+  <p class="sub">Empat langkah, tanpa perlu keluar rumah.</p>
+  <ol>
+    <li><h3>Pesan</h3><p>Isi kalkulator di atas, lalu kirim lewat WhatsApp.</p></li>
+    <li><h3>Jemput</h3><p>Kurir datang ke alamat Anda dan menimbang cucian.</p></li>
+    <li><h3>Cuci</h3><p>Pakaian dipisah per warna, dicuci, dikeringkan, dan disetrika.</p></li>
+    <li><h3>Antar</h3><p>Cucian wangi dan terlipat rapi sampai di rumah.</p></li>
+  </ol>
+</div></section>
+
+<section id="kontak" class="alt"><div class="wrap contact">
+  <div>
+    <h2>Kontak &amp; jam buka</h2>
+    <p class="sub">Senin–Sabtu 07.00–20.00, Minggu 09.00–17.00.</p>
+    <a class="btn" href="https://wa.me/6281234567890" target="_blank" rel="noopener" style="display:inline-block">Chat WhatsApp</a>
+  </div>
+  <div>
+    <p><strong>Alamat</strong><br>Jl. Contoh Raya No. 12, Jakarta</p>
+    <p><strong>WhatsApp</strong><br>0812-3456-7890</p>
+    <p><strong>Area layanan</strong><br>Radius 5 km dari toko.</p>
+  </div>
+</div></section>
+
+<footer><div class="wrap">© 2026 Bilas Laundry. Semua hak dilindungi.</div></footer>
+
+<script src="script.js"></script>
+</body>
+</html>
