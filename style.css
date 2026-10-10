@@ -52,9 +52,44 @@ ol p{margin:0;color:var(--muted);font-size:15px}
 .contact{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .contact p{margin:4px 0}
 footer{padding:28px 0 36px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+.faq{max-width:720px}
+.faq details{background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:10px}
+.faq summary{cursor:pointer;font-weight:600}
+.faq details p{margin:10px 0 0;color:var(--muted)}
 @media (max-width:820px){
   .hero,.contact{grid-template-columns:1fr}
   ol{grid-template-columns:1fr 1fr}
   nav a:not(:last-child){display:none}
 }
 @media (max-width:480px){ol{grid-template-columns:1fr}}
+
+/* Hari 6: tampilan lebih menarik */
+body{background:radial-gradient(1100px 480px at 90% -10%,var(--wash),transparent 60%),var(--bg)}
+.hero{position:relative}
+.hero h1 span{background:linear-gradient(90deg,var(--teal),#3B82F6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.bubbles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
+.bubbles i{position:absolute;bottom:-60px;border-radius:50%;border:2px solid var(--teal);opacity:.35;animation:naik 12s linear infinite}
+.bubbles i:nth-child(1){left:5%;width:26px;height:26px}
+.bubbles i:nth-child(2){left:30%;width:44px;height:44px;animation-delay:3s;animation-duration:15s}
+.bubbles i:nth-child(3){left:52%;width:18px;height:18px;animation-delay:6s}
+.bubbles i:nth-child(4){left:74%;width:34px;height:34px;animation-delay:2s;animation-duration:14s}
+.bubbles i:nth-child(5){left:92%;width:22px;height:22px;animation-delay:8s}
+@keyframes naik{to{transform:translateY(-560px);opacity:0}}
+section h2::after{content:"";display:block;width:56px;height:5px;border-radius:3px;background:var(--sun);margin-top:10px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:22px;transition:transform .2s,border-color .2s,box-shadow .2s}
+.card:hover{transform:translateY(-6px);border-color:var(--teal);box-shadow:0 10px 0 var(--wash)}
+.card b{display:grid;place-items:center;width:54px;height:54px;border-radius:16px;background:var(--wash);font-size:28px;margin-bottom:12px}
+.card h3{font-size:20px}
+.card p{color:var(--muted);font-size:15px;margin:6px 0 12px}
+.card span{font-weight:800;color:var(--teal)}
+.btn{transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-2px)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";display:grid;place-items:center;flex:none;width:28px;height:28px;border-radius:50%;background:var(--wash);color:var(--teal);font-weight:800;transition:transform .2s}
+.faq details[open]{border-color:var(--teal)}
+.faq details[open] summary::after{content:"\2212";transform:rotate(180deg)}
+@media (max-width:820px){.cards{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.cards{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.bubbles i{animation:none}.card,.btn{transition:none}}
