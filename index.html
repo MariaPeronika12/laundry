@@ -17,7 +17,7 @@
 <div class="wrap">
   <header>
     <a class="logo" href="#">Bilas Laundry</a>
-    <nav><a href="#harga">Harga</a><a href="#cara">Cara kerja</a><a href="#faq">FAQ</a><a href="#kontak">Kontak</a></nav>
+    <nav><a href="#harga">Harga</a><a href="#cara">Cara kerja</a><a href="#lacak">Lacak</a><a href="#faq">FAQ</a><a href="#kontak">Kontak</a></nav>
   </header>
 
   <div class="hero">
@@ -40,6 +40,8 @@
       <label class="check"><input id="antar" type="checkbox" checked> Antar-jemput ke rumah</label>
       <div class="total"><span>Perkiraan total</span><strong id="total">Rp0</strong></div>
       <p class="note" id="ongkir"></p>
+      <button class="btn" id="simpan" type="button">Simpan pesanan &amp; dapatkan kode</button>
+      <p class="note" id="kode" role="status"></p>
       <a class="btn" id="wa" href="#" target="_blank" rel="noopener">Pesan lewat WhatsApp</a>
     </div>
   </div>
@@ -79,6 +81,17 @@
     <li><h3>Cuci</h3><p>Pakaian dipisah per warna, dicuci, dikeringkan, dan disetrika.</p></li>
     <li><h3>Antar</h3><p>Cucian wangi dan terlipat rapi sampai di rumah.</p></li>
   </ol>
+</div></section>
+
+<section id="lacak"><div class="wrap">
+  <h2>Lacak cucian</h2>
+  <p class="sub">Masukkan kode pesanan Anda. Untuk demo, status berpindah otomatis setiap 20 detik.</p>
+  <div class="lacak">
+    <div class="cari"><input id="kodeinput" placeholder="Contoh: BL-1234" aria-label="Kode pesanan" maxlength="8"><button class="btn" id="cari" type="button">Cek status</button></div>
+    <div id="hasil" aria-live="polite"></div>
+    <h3>Pesanan terakhir</h3>
+    <div id="riwayat"></div>
+  </div>
 </div></section>
 
 <section id="testimoni" class="alt"><div class="wrap">
@@ -132,6 +145,8 @@
 </div></section>
 
 <footer><div class="wrap">© 2026 Bilas Laundry. Semua hak dilindungi.</div></footer>
+
+<a class="wa-float" href="https://wa.me/6281234567890" target="_blank" rel="noopener" aria-label="Chat WhatsApp"><span>💬</span> Chat</a>
 
 <script src="script.js"></script>
 </body>
