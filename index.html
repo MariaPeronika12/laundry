@@ -17,7 +17,7 @@
 <div class="wrap">
   <header>
     <a class="logo" href="#">Bilas Laundry</a>
-    <nav><a href="#harga">Harga</a><a href="#cara">Cara kerja</a><a href="#lacak">Lacak</a><a href="#faq">FAQ</a><a href="#kontak">Kontak</a></nav>
+    <nav><a href="#harga">Harga</a><a href="#cara">Cara kerja</a><a href="#lacak">Lacak</a><a href="#faq">FAQ</a><a href="#kontak">Kontak</a><button id="tema" class="tema" type="button" aria-label="Ganti tema terang atau gelap" aria-pressed="false">🌙</button></nav>
   </header>
 
   <div class="hero">
@@ -81,6 +81,17 @@
     <li><h3>Cuci</h3><p>Pakaian dipisah per warna, dicuci, dikeringkan, dan disetrika.</p></li>
     <li><h3>Antar</h3><p>Cucian wangi dan terlipat rapi sampai di rumah.</p></li>
   </ol>
+</div></section>
+
+<section id="galeri" class="alt"><div class="wrap">
+  <h2>Sebelum &amp; sesudah</h2>
+  <p class="sub">Geser untuk melihat perbedaan hasil cucian kami.</p>
+  <div class="ba">
+    <div class="ba-pane ba-sebelum"><span>Sebelum</span></div>
+    <div class="ba-pane ba-sesudah" id="ba-sesudah"><span>Sesudah</span></div>
+    <input type="range" min="0" max="100" value="50" id="ba-range" aria-label="Geser perbandingan sebelum dan sesudah">
+    <div class="ba-garis" id="ba-garis"></div>
+  </div>
 </div></section>
 
 <section id="lacak"><div class="wrap">
