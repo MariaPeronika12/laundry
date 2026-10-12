@@ -51,3 +51,20 @@
   setInterval(function(){if(aktif)cari(aktif)},2000);
   riwayat();
 })();
+
+/* Tombol tema terang/gelap */
+(function(){
+  var k="bilas_tema",d=document.documentElement,b=document.getElementById("tema"),t;
+  function pasang(x){d.setAttribute("data-theme",x);b.textContent=x=="dark"?"\u2600\uFE0F":"\uD83C\uDF19";b.setAttribute("aria-pressed",x=="dark")}
+  try{t=localStorage.getItem(k)}catch(e){}
+  if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  pasang(t);
+  b.addEventListener("click",function(){t=t=="dark"?"light":"dark";pasang(t);try{localStorage.setItem(k,t)}catch(e){}});
+})();
+
+/* Slider sebelum & sesudah */
+(function(){
+  var r=document.getElementById("ba-range"),s=document.getElementById("ba-sesudah"),g=document.getElementById("ba-garis");
+  function u(){s.style.clipPath="inset(0 0 0 "+r.value+"%)";g.style.left=r.value+"%"}
+  r.addEventListener("input",u);u();
+})();
