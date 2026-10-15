@@ -3,12 +3,13 @@
   var $=function(i){return document.getElementById(i)};
   var rp=function(n){return "Rp"+Math.round(n).toLocaleString("id-ID")};
   function update(){
-    var sel=$("layanan"),harga=+sel.value,kg=Math.max(0,parseFloat($("berat").value)||0);
+    var sel=$("layanan"),harga=+sel.value,kg=Math.min(50,Math.max(0,parseFloat($("berat").value)||0));
     var unit=sel.options[sel.selectedIndex].getAttribute("data-unit")||"kg";
     $("lblberat").textContent=unit=="kg"?"Perkiraan berat (kg)":"Jumlah ("+unit+")";
     var antar=$("antar").checked,ongkir=0,info="";
     if(antar){ongkir=(unit=="kg"&&kg>=5)?0:5000;info=ongkir?"Ongkos antar-jemput Rp5.000 (gratis mulai 5 kg).":"Antar-jemput gratis.";}
     else info="Anda mengantar dan mengambil sendiri ke toko.";
+    if(kg<=0){ongkir=0;info="Masukkan jumlah lebih dari 0.";}
     var total=harga*kg+ongkir;
     $("total").textContent=rp(total);
     $("ongkir").textContent=info+" Total final menyesuaikan timbangan.";
