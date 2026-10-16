@@ -11,11 +11,14 @@
     else info="Anda mengantar dan mengambil sendiri ke toko.";
     if(kg<=0){ongkir=0;info="Masukkan jumlah lebih dari 0.";}
     var total=harga*kg+ongkir;
+    var jam=+sel.options[sel.selectedIndex].getAttribute("data-jam")||48,d=new Date(Date.now()+jam*3600000);
+    var est=d.toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long"})+(jam<=12?", sekitar pukul "+d.toLocaleTimeString("id-ID",{hour:"2-digit",minute:"2-digit"}):"");
+    $("estimasi").textContent=kg>0?"Estimasi selesai: "+est:"";
     $("total").textContent=rp(total);
     $("ongkir").textContent=info+" Total final menyesuaikan timbangan.";
     var teks="Halo Bilas Laundry, saya mau pesan:\n- Layanan: "+sel.options[sel.selectedIndex].text.split(" – ")[0]+
       "\n- Jumlah: "+kg+" "+unit+"\n- "+(antar?"Antar-jemput":"Antar sendiri")+
-      "\n- Perkiraan total: "+rp(total)+"\nAlamat: ";
+      "\n- Perkiraan total: "+rp(total)+"\n- Estimasi selesai: "+est+"\nAlamat: ";
     $("wa").href="https://wa.me/"+WA+"?text="+encodeURIComponent(teks);
   }
   ["layanan","berat","antar"].forEach(function(i){$(i).addEventListener("input",update)});
@@ -70,4 +73,12 @@
   var r=document.getElementById("ba-range"),s=document.getElementById("ba-sesudah"),g=document.getElementById("ba-garis");
   function u(){s.style.clipPath="inset(0 0 0 "+r.value+"%)";g.style.left=r.value+"%"}
   r.addEventListener("input",u);u();
+})();
+
+/* Tombol kembali ke atas */
+(function(){
+  var b=document.getElementById("atas");
+  function cek(){b.hidden=window.scrollY<400}
+  window.addEventListener("scroll",cek,{passive:true});cek();
+  b.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"})});
 })();
