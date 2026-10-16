@@ -30,18 +30,19 @@
       <h2>Hitung biaya cucian</h2>
       <label for="layanan">Layanan</label>
       <select id="layanan">
-        <option value="7000">Cuci kiloan reguler (2 hari) – Rp7.000/kg</option>
-        <option value="9000" selected>Cuci + setrika reguler (2 hari) – Rp9.000/kg</option>
-        <option value="14000">Cuci + setrika ekspres (6 jam) – Rp14.000/kg</option>
-        <option value="5000">Setrika saja (2 hari) – Rp5.000/kg</option>
-        <option value="35000" data-unit="pasang">Cuci sepatu (3 hari) – Rp35.000/pasang</option>
-        <option value="15000" data-unit="m²">Karpet (4 hari) – Rp15.000/m²</option>
+        <option value="7000" data-jam="48">Cuci kiloan reguler (2 hari) – Rp7.000/kg</option>
+        <option value="9000" data-jam="48" selected>Cuci + setrika reguler (2 hari) – Rp9.000/kg</option>
+        <option value="14000" data-jam="6">Cuci + setrika ekspres (6 jam) – Rp14.000/kg</option>
+        <option value="5000" data-jam="48">Setrika saja (2 hari) – Rp5.000/kg</option>
+        <option value="35000" data-jam="72" data-unit="pasang">Cuci sepatu (3 hari) – Rp35.000/pasang</option>
+        <option value="15000" data-jam="96" data-unit="m²">Karpet (4 hari) – Rp15.000/m²</option>
       </select>
       <label for="berat" id="lblberat">Perkiraan berat (kg)</label>
       <input id="berat" type="number" min="1" max="50" step="0.5" value="4" inputmode="decimal">
       <label class="check"><input id="antar" type="checkbox" checked> Antar-jemput ke rumah</label>
       <div class="total"><span>Perkiraan total</span><strong id="total">Rp0</strong></div>
       <p class="note" id="ongkir"></p>
+      <p class="note estimasi" id="estimasi"></p>
       <button class="btn" id="simpan" type="button">Simpan pesanan &amp; dapatkan kode</button>
       <p class="note" id="kode" role="status"></p>
       <a class="btn" id="wa" href="#" target="_blank" rel="noopener">Pesan lewat WhatsApp</a>
@@ -160,6 +161,8 @@
 </div></section>
 
 <footer><div class="wrap">© 2026 Bilas Laundry. Semua hak dilindungi.</div></footer>
+
+<button id="atas" class="atas" type="button" aria-label="Kembali ke atas" hidden>↑</button>
 
 <a class="wa-float" href="https://wa.me/6281234567890" target="_blank" rel="noopener" aria-label="Chat WhatsApp"><span>💬</span> Chat</a>
 
