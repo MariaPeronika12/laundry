@@ -146,3 +146,9 @@ button.btn{font:inherit;font-weight:600;cursor:pointer;width:100%}
 .ba-garis{position:absolute;top:0;bottom:0;left:50%;width:4px;margin-left:-2px;background:#fff;z-index:2;pointer-events:none}
 .ba-garis::after{content:"\2194";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:var(--sun);color:#12303F;display:grid;place-items:center;font-weight:800;border:2px solid #12303F}
 .ba input:focus-visible ~ .ba-garis{box-shadow:0 0 0 4px var(--sun)}
+
+/* Estimasi selesai dan tombol kembali ke atas */
+.estimasi{font-weight:600;color:var(--teal)}
+.atas{position:fixed;left:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:50;width:46px;height:46px;border-radius:50%;border:2px solid var(--ink);background:var(--surface);color:var(--ink);font-size:20px;font-weight:800;cursor:pointer}
+.atas[hidden]{display:none}
+.atas:hover{background:var(--sun);color:#12303F}
