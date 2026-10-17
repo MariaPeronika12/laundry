@@ -4,14 +4,15 @@ Website sederhana untuk usaha laundry: hitung biaya, pesan lewat WhatsApp, dan l
 
 ## Fitur
 
-- **Kalkulator biaya** berdasarkan layanan, jumlah (kg, pasang, atau m²), dan antar-jemput
-- **Pesan lewat WhatsApp** dengan detail pesanan terisi otomatis
+- **Kalkulator biaya** berdasarkan layanan, jumlah (kg, pasang, atau m²), dan antar-jemput, dengan validasi input (maksimal 50)
+- **Estimasi tanggal selesai** sesuai lama pengerjaan tiap layanan
+- **Pesan lewat WhatsApp** dengan detail pesanan dan estimasi terisi otomatis
 - **Simpan pesanan dan kode pesanan** (contoh: `BL-1234`), tersimpan di browser
 - **Lacak cucian**: status Dijemput, Dicuci, Disetrika, Diantar (simulasi demo, berpindah tiap 20 detik)
 - **Daftar harga** dan kartu layanan, termasuk cuci sepatu dan karpet
 - **Galeri sebelum dan sesudah** dengan slider geser
 - **Testimoni pelanggan** dan **FAQ** berbentuk accordion
-- **Tombol WhatsApp melayang**
+- **Tombol WhatsApp melayang** dan **tombol kembali ke atas**
 - **Mode terang dan gelap** dengan tombol, pilihan tersimpan di browser
 - Tampilan responsif untuk HP dan komputer
 
@@ -28,7 +29,7 @@ HTML, CSS, dan JavaScript. Data pesanan dan tema disimpan dengan `localStorage`.
 
 - `index.html`: struktur halaman
 - `style.css`: tampilan
-- `script.js`: kalkulator, pesanan, lacak status, tema, dan slider
+- `script.js`: kalkulator, estimasi, pesanan, lacak status, tema, slider, dan tombol kembali ke atas
 - `README.md`: dokumentasi proyek
 
 ## Mengubah data usaha
