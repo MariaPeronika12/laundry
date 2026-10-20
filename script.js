@@ -1,3 +1,13 @@
+/*
+  Bilas Laundry – script.js
+  Isi file:
+  1. Kalkulator biaya, estimasi selesai, dan tautan WhatsApp
+  2. Simpan pesanan dan lacak status cucian (localStorage)
+  3. Tombol tema terang/gelap
+  4. Slider sebelum & sesudah
+  5. Tombol kembali ke atas
+*/
+
 (function(){
   var WA="6281234567890";
   var $=function(i){return document.getElementById(i)};
