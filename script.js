@@ -52,7 +52,7 @@
   function cari(k){var p=muat().filter(function(x){return x.kode==k.trim().toUpperCase()})[0];tampil(p)}
   function riwayat(){
     var l=muat();
-    $("riwayat").innerHTML=l.length?l.map(function(p){return'<button type="button" class="chip" data-k="'+esc(p.kode)+'">'+esc(p.kode)+' · '+esc(p.total)+'</button>'}).join(""):'<p class="kosong">Belum ada pesanan tersimpan.</p>';
+    $("riwayat").innerHTML=l.length?l.map(function(p){return'<button type="button" class="chip" data-k="'+esc(p.kode)+'">'+esc(p.kode)+' · '+esc(p.total)+'</button>'}).join("")+'<button type="button" class="chip" data-hapus="1">Hapus riwayat</button>':'<p class="kosong">Belum ada pesanan tersimpan.</p>';
   }
   $("simpan").addEventListener("click",function(){
     var s=$("layanan"),p={kode:"BL-"+Math.floor(1000+Math.random()*9000),layanan:s.options[s.selectedIndex].text.split(" – ")[0],kg:+$("berat").value||0,unit:s.options[s.selectedIndex].getAttribute("data-unit")||"kg",antar:$("antar").checked,total:$("total").textContent,waktu:Date.now()};
@@ -63,7 +63,8 @@
   });
   $("cari").addEventListener("click",function(){cari($("kodeinput").value)});
   $("kodeinput").addEventListener("keydown",function(e){if(e.key=="Enter")cari(this.value)});
-  $("riwayat").addEventListener("click",function(e){var k=e.target.getAttribute&&e.target.getAttribute("data-k");if(k){$("kodeinput").value=k;cari(k)}});
+  $("riwayat").addEventListener("click",function(e){
+    if(e.target.getAttribute&&e.target.getAttribute("data-hapus")){if(confirm("Hapus semua riwayat pesanan?")){simpan([]);aktif=null;$("hasil").innerHTML="";riwayat()}return}var k=e.target.getAttribute&&e.target.getAttribute("data-k");if(k){$("kodeinput").value=k;cari(k)}});
   setInterval(function(){if(aktif)cari(aktif)},2000);
   riwayat();
 })();
