@@ -35,7 +35,7 @@
   update();
 })();
 
-/* Hari 9: pesanan, kode, dan lacak status (disimpan di browser) */
+/* Pesanan, kode, dan lacak status (disimpan di browser) */
 (function(){
   var KEY="bilas_pesanan",LANGKAH=["Dijemput","Dicuci","Disetrika","Diantar"],DETIK=20;
   var $=function(i){return document.getElementById(i)},aktif=null;
@@ -58,6 +58,12 @@
     var s=$("layanan"),p={kode:"BL-"+Math.floor(1000+Math.random()*9000),layanan:s.options[s.selectedIndex].text.split(" – ")[0],kg:+$("berat").value||0,unit:s.options[s.selectedIndex].getAttribute("data-unit")||"kg",antar:$("antar").checked,total:$("total").textContent,waktu:Date.now()};
     var l=muat();l.unshift(p);simpan(l.slice(0,10));
     $("kode").textContent="Pesanan tersimpan. Kode Anda: "+p.kode;
+    var tb=document.createElement("button");tb.type="button";tb.className="chip";tb.textContent="Salin kode";
+    tb.addEventListener("click",function(){
+      if(navigator.clipboard){navigator.clipboard.writeText(p.kode).then(function(){tb.textContent="Tersalin \u2713"},function(){tb.textContent="Gagal menyalin"})}
+      else{tb.textContent="Tidak didukung"}
+    });
+    $("kode").appendChild(tb);
     $("kodeinput").value=p.kode;tampil(p);riwayat();
     $("lacak").scrollIntoView({behavior:"smooth"});
   });
@@ -92,4 +98,16 @@
   function cek(){b.hidden=window.scrollY<400}
   window.addEventListener("scroll",cek,{passive:true});cek();
   b.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"})});
+})();
+
+/* Sapaan sesuai waktu di bagian atas halaman */
+(function(){
+  var j=new Date().getHours();
+  var salam=j<11?"Selamat pagi":j<15?"Selamat siang":j<18?"Selamat sore":"Selamat malam";
+  var h1=document.querySelector(".hero h1");
+  if(!h1)return;
+  var p=document.createElement("p");
+  p.textContent=salam+"! Cucian menumpuk? Serahkan pada kami.";
+  p.style.cssText="margin:0 0 10px;font-weight:600;color:var(--teal)";
+  h1.parentNode.insertBefore(p,h1);
 })();
