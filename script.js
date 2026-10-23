@@ -35,7 +35,7 @@
   update();
 })();
 
-/* Pesanan, kode, dan lacak status (disimpan di browser) */
+/* Hari 9: pesanan, kode, dan lacak status (disimpan di browser) */
 (function(){
   var KEY="bilas_pesanan",LANGKAH=["Dijemput","Dicuci","Disetrika","Diantar"],DETIK=20;
   var $=function(i){return document.getElementById(i)},aktif=null;
@@ -110,4 +110,27 @@
   p.textContent=salam+"! Cucian menumpuk? Serahkan pada kami.";
   p.style.cssText="margin:0 0 10px;font-weight:600;color:var(--teal)";
   h1.parentNode.insertBefore(p,h1);
+})();
+
+/* Booking jemput cucian (disimpan di browser, lalu dikirim lewat WhatsApp) */
+(function(){
+  var f=document.getElementById("formbooking");
+  if(!f)return;
+  var KEY="bilas_booking",st=document.getElementById("bk-status"),tgl=document.getElementById("bk-tgl");
+  var n=new Date();
+  tgl.min=n.getFullYear()+"-"+String(n.getMonth()+1).padStart(2,"0")+"-"+String(n.getDate()).padStart(2,"0");
+  var v=function(i){return document.getElementById(i).value.trim()};
+  f.addEventListener("submit",function(e){
+    e.preventDefault();
+    var d={nama:v("bk-nama"),hp:v("bk-hp"),alamat:v("bk-alamat"),tgl:v("bk-tgl"),jam:v("bk-jam"),catatan:v("bk-catatan")};
+    if(!d.nama||!d.hp||!d.alamat||!d.tgl){st.textContent="Lengkapi nama, nomor HP, alamat, dan tanggal jemput.";return}
+    if(!/^[0-9+\-\s]{8,16}$/.test(d.hp)){st.textContent="Nomor HP tidak valid.";return}
+    var kode="BK-"+Math.floor(1000+Math.random()*9000);
+    try{var l=JSON.parse(localStorage.getItem(KEY))||[];l.unshift(Object.assign({kode:kode},d));localStorage.setItem(KEY,JSON.stringify(l.slice(0,10)))}catch(x){}
+    var teks="Halo Bilas Laundry, saya mau booking jemput cucian ("+kode+"):\n- Nama: "+d.nama+"\n- HP: "+d.hp+"\n- Alamat: "+d.alamat+"\n- Jemput: "+d.tgl+", "+d.jam+(d.catatan?"\n- Catatan: "+d.catatan:"");
+    var wa=document.getElementById("wa").href.split("wa.me/")[1].split("?")[0];
+    st.textContent="Booking "+kode+" tersimpan. Membuka WhatsApp untuk konfirmasi.";
+    window.open("https://wa.me/"+wa+"?text="+encodeURIComponent(teks),"_blank","noopener");
+    f.reset();
+  });
 })();
