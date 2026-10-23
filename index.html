@@ -17,7 +17,7 @@
 <div class="wrap">
   <header>
     <a class="logo" href="#">Bilas Laundry</a>
-    <nav><a href="#harga">Harga</a><a href="#cara">Cara kerja</a><a href="#lacak">Lacak</a><a href="#faq">FAQ</a><a href="#kontak">Kontak</a><button id="tema" class="tema" type="button" aria-label="Ganti tema terang atau gelap" aria-pressed="false">🌙</button></nav>
+    <nav><a href="#harga">Harga</a><a href="#cara">Cara kerja</a><a href="#booking">Booking</a><a href="#lacak">Lacak</a><a href="#faq">FAQ</a><a href="#kontak">Kontak</a><button id="tema" class="tema" type="button" aria-label="Ganti tema terang atau gelap" aria-pressed="false">🌙</button></nav>
   </header>
 
   <div class="hero">
@@ -109,6 +109,30 @@
     <input type="range" min="0" max="100" value="50" id="ba-range" aria-label="Geser perbandingan sebelum dan sesudah">
     <div class="ba-garis" id="ba-garis"></div>
   </div>
+</div></section>
+
+<section id="booking"><div class="wrap">
+  <h2>Booking jemput cucian</h2>
+  <p class="sub">Isi data di bawah. Kami jadwalkan penjemputan lalu konfirmasi lewat WhatsApp.</p>
+  <form class="booking" id="formbooking" novalidate>
+    <label for="bk-nama">Nama</label>
+    <input id="bk-nama" type="text" autocomplete="name" placeholder="Nama lengkap">
+    <label for="bk-hp">Nomor HP</label>
+    <input id="bk-hp" type="tel" autocomplete="tel" placeholder="0812-xxxx-xxxx">
+    <label for="bk-alamat">Alamat jemput</label>
+    <textarea id="bk-alamat" autocomplete="street-address" placeholder="Jalan, nomor, patokan"></textarea>
+    <div class="dua">
+      <div><label for="bk-tgl">Tanggal jemput</label><input id="bk-tgl" type="date"></div>
+      <div><label for="bk-jam">Jam jemput</label>
+        <select id="bk-jam">
+          <option>08.00–10.00</option><option>10.00–12.00</option><option>13.00–15.00</option><option>15.00–17.00</option>
+        </select></div>
+    </div>
+    <label for="bk-catatan">Catatan (opsional)</label>
+    <input id="bk-catatan" type="text" placeholder="Contoh: ada selimut besar">
+    <button class="btn" type="submit">Kirim booking lewat WhatsApp</button>
+    <p class="note" id="bk-status" role="status"></p>
+  </form>
 </div></section>
 
 <section id="lacak"><div class="wrap">
