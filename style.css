@@ -168,3 +168,8 @@ button.btn{font:inherit;font-weight:600;cursor:pointer;width:100%}
 .booking textarea{min-height:84px;resize:vertical}
 .booking .dua{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media (max-width:480px){.booking .dua{grid-template-columns:1fr}}
+
+/* Animasi muncul saat digulir */
+.muncul{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+.muncul.tampak{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.muncul{opacity:1;transform:none;transition:none}}

@@ -1,24 +1,32 @@
 # Bilas Laundry
 
-Website sederhana untuk usaha laundry: hitung biaya, pesan lewat WhatsApp, dan lacak status cucian. Dibuat dengan HTML, CSS, dan JavaScript murni (tanpa framework).
+Website sederhana untuk usaha laundry: hitung biaya, booking jemput, pesan lewat WhatsApp, lacak status cucian, dan halaman admin untuk mencatat transaksi. Dibuat dengan HTML, CSS, dan JavaScript murni (tanpa framework).
 
-## Fitur
+## Fitur untuk pelanggan
 
-- **Kalkulator biaya** berdasarkan layanan, jumlah (kg, pasang, atau m²), dan antar-jemput, dengan validasi input (maksimal 50)
+- **Kalkulator biaya** berdasarkan layanan, jumlah (kg, pasang, atau m²), dan antar-jemput, dengan validasi input
 - **Estimasi tanggal selesai** sesuai lama pengerjaan tiap layanan
 - **Pesan lewat WhatsApp** dengan detail pesanan dan estimasi terisi otomatis
-- **Simpan pesanan dan kode pesanan** (contoh: `BL-1234`), tersimpan di browser
-- **Lacak cucian**: status Dijemput, Dicuci, Disetrika, Diantar (simulasi demo, berpindah tiap 20 detik)
-- **Daftar harga** dan kartu layanan, termasuk cuci sepatu dan karpet
-- **Galeri sebelum dan sesudah** dengan slider geser
-- **Testimoni pelanggan** dan **FAQ** berbentuk accordion
-- **Tombol WhatsApp melayang** dan **tombol kembali ke atas**
-- **Mode terang dan gelap** dengan tombol, pilihan tersimpan di browser
-- Tampilan responsif untuk HP dan komputer
+- **Booking jemput cucian**: form nama, nomor HP, alamat, tanggal, dan jam jemput, lalu dikirim lewat WhatsApp
+- **Simpan pesanan dan kode pesanan** (contoh: `BL-1234`) dengan tombol salin kode
+- **Lacak cucian**: status Dijemput, Dicuci, Disetrika, Diantar (simulasi demo)
+- **Daftar harga**, kartu layanan, galeri sebelum dan sesudah, testimoni, dan FAQ
+- **Tombol WhatsApp melayang**, tombol kembali ke atas, dan sapaan sesuai waktu
+- **Mode terang dan gelap** dengan pilihan tersimpan di browser
+- Tampilan responsif untuk HP dan komputer, halaman `404.html` kustom
+
+## Fitur untuk pemilik (admin)
+
+Buka `admin.html` untuk:
+
+- Melihat ringkasan booking, pendapatan lunas, dan tagihan yang belum dibayar
+- Melihat daftar booking dan menjadikannya transaksi
+- Mencatat transaksi (metode Tunai, Transfer, atau QRIS) dan mengubah status lunas
+- Mengunduh riwayat transaksi sebagai file CSV
 
 ## Teknologi
 
-HTML, CSS, dan JavaScript. Data pesanan dan tema disimpan dengan `localStorage`.
+HTML, CSS, dan JavaScript. Data pesanan, booking, transaksi, dan tema disimpan dengan `localStorage`.
 
 ## Cara menjalankan
 
@@ -27,10 +35,12 @@ HTML, CSS, dan JavaScript. Data pesanan dan tema disimpan dengan `localStorage`.
 
 ## Struktur file
 
-- `index.html`: struktur halaman
+- `index.html`: halaman utama
+- `admin.html`: halaman admin booking dan transaksi
+- `404.html`: halaman tidak ditemukan
 - `style.css`: tampilan
-- `script.js`: kalkulator, estimasi, pesanan, lacak status, tema, slider, dan tombol kembali ke atas
-- `README.md`: dokumentasi proyek
+- `script.js`: kalkulator, booking, pesanan, lacak status, tema, dan slider
+- `LICENSE`: lisensi MIT
 
 ## Mengubah data usaha
 
@@ -38,4 +48,5 @@ Nama, alamat, jam buka, dan harga ada di `index.html`. Nomor WhatsApp ada di `sc
 
 ## Catatan
 
-Pelacakan status pada versi ini hanya simulasi di sisi browser. Untuk status yang nyata, dibutuhkan server atau database.
+- Pelacakan status hanya simulasi di sisi browser.
+- Data booking dan transaksi tersimpan per browser dan perangkat, belum tersambung antar-perangkat. Halaman admin juga belum memakai password. Untuk pemakaian sungguhan dibutuhkan server dan database.

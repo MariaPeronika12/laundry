@@ -134,3 +134,12 @@
     f.reset();
   });
 })();
+
+/* Animasi muncul saat digulir */
+(function(){
+  if(!("IntersectionObserver" in window))return;
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("tampak");io.unobserve(e.target)}});
+  },{threshold:.12});
+  document.querySelectorAll("section .wrap").forEach(function(x){x.classList.add("muncul");io.observe(x)});
+})();
