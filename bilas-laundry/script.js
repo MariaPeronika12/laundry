@@ -108,7 +108,7 @@
   if(!h1)return;
   var p=document.createElement("p");
   p.textContent=salam+"! Cucian menumpuk? Serahkan pada kami.";
-  p.style.cssText="margin:0 0 10px;font-weight:600;color:var(--pink)";
+  p.style.cssText="margin:0 0 10px;font-weight:600;color:var(--teal)";
   h1.parentNode.insertBefore(p,h1);
 })();
 
