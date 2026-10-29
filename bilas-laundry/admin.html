@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin – Bilas Laundry</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧺</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.ring{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:8px 0 8px}
+.ring div{background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:16px}
+.ring b{display:block;font:800 26px "Bricolage Grotesque",sans-serif;color:var(--pink)}
+.ring span{color:var(--muted);font-size:14px}
+.kartu{background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:16px;margin-bottom:10px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.kartu small{display:block;color:var(--muted)}
+.aksi button,.tbl button{font:inherit;font-weight:600;cursor:pointer;padding:6px 12px;border-radius:999px;border:2px solid var(--line);background:var(--bg);color:var(--ink);margin-left:6px}
+.aksi button:hover,.tbl button:hover{border-color:var(--pink)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fgrid input,.fgrid select{width:100%;font:inherit;padding:12px 14px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.lunas{color:var(--pink);font-weight:600}.belum{color:#C2410C;font-weight:600}
+.info{background:var(--blush);border-radius:14px;padding:12px 16px;color:var(--muted);font-size:15px}
+@media (max-width:640px){.ring,.fgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><a class="logo" href="./">Bilas Laundry · Admin</a><nav><a href="./">Ke situs</a></nav></header>
+  <p class="info">Data booking dan transaksi di halaman ini hanya tersimpan di browser perangkat ini, jadi belum tersambung antar-perangkat.</p>
+
+  <section style="padding:28px 0 8px">
+    <h2>Ringkasan</h2>
+    <div class="ring">
+      <div><b id="r-bk">0</b><span>booking masuk</span></div>
+      <div><b id="r-lunas">Rp0</b><span>pendapatan (lunas)</span></div>
+      <div><b id="r-belum">Rp0</b><span>belum dibayar</span></div>
+    </div>
+  </section>
+
+  <section style="padding:28px 0 8px">
+    <h2>Booking</h2>
+    <p class="sub">Booking dari form di situs. Klik "Buat transaksi" untuk mengisi form di bawah.</p>
+    <div id="daftar-bk"></div>
+  </section>
+
+  <section style="padding:28px 0 8px">
+    <h2>Catat transaksi</h2>
+    <form id="ftrx" class="fgrid" novalidate>
+      <input id="t-nama" placeholder="Nama pelanggan" aria-label="Nama pelanggan">
+      <input id="t-layanan" placeholder="Layanan (mis. Cuci + setrika 4 kg)" aria-label="Layanan">
+      <input id="t-total" type="number" min="0" step="500" placeholder="Total (Rp)" aria-label="Total">
+      <select id="t-metode" aria-label="Metode bayar"><option>Tunai</option><option>Transfer</option><option>QRIS</option></select>
+      <select id="t-status" aria-label="Status bayar"><option value="1">Lunas</option><option value="0">Belum lunas</option></select>
+      <button class="btn" type="submit" style="margin:0">Simpan transaksi</button>
+    </form>
+    <p class="note" id="t-pesan" role="status"></p>
+  </section>
+
+  <section style="padding:28px 0 48px">
+    <h2>Riwayat transaksi</h2>
+    <div class="scroll"><table class="tbl"><thead><tr><th>Tanggal</th><th>Pelanggan</th><th>Layanan</th><th>Metode</th><th>Total</th><th>Status</th></tr></thead><tbody id="isi-trx"></tbody></table></div>
+    <button class="btn" id="csv" type="button" style="display:inline-block;width:auto">Unduh CSV</button>
+  </section>
+</div>
+<script>
+(function(){
+  var KB="bilas_booking",KT="bilas_transaksi",$=function(i){return document.getElementById(i)};
+  function muat(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch(e){return[]}}
+  function simpan(k,l){try{localStorage.setItem(k,JSON.stringify(l))}catch(e){}}
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+  function rp(n){return "Rp"+Math.round(n).toLocaleString("id-ID")}
+  function render(){
+    var bk=muat(KB),tr=muat(KT),lunas=0,belum=0;
+    tr.forEach(function(t){if(t.lunas)lunas+=t.total;else belum+=t.total});
+    $("r-bk").textContent=bk.length;$("r-lunas").textContent=rp(lunas);$("r-belum").textContent=rp(belum);
+    $("daftar-bk").innerHTML=bk.length?bk.map(function(b,i){
+      return'<div class="kartu"><div><b>'+esc(b.kode)+' · '+esc(b.nama)+'</b><small>'+esc(b.tgl)+', '+esc(b.jam)+' · '+esc(b.hp)+'</small><small>'+esc(b.alamat)+(b.catatan?' · '+esc(b.catatan):'')+'</small></div><div class="aksi"><button type="button" data-a="jadi" data-i="'+i+'">Buat transaksi</button><button type="button" data-a="hapus-bk" data-i="'+i+'">Hapus</button></div></div>';
+    }).join(""):'<p class="note">Belum ada booking.</p>';
+    $("isi-trx").innerHTML=tr.length?tr.map(function(t,i){
+      return'<tr><td>'+esc(new Date(t.waktu).toLocaleDateString("id-ID"))+'</td><td>'+esc(t.nama)+'</td><td>'+esc(t.layanan)+'</td><td>'+esc(t.metode)+'</td><td>'+rp(t.total)+'</td><td><span class="'+(t.lunas?"lunas":"belum")+'">'+(t.lunas?"Lunas":"Belum")+'</span> <button type="button" data-a="ubah" data-i="'+i+'">Ubah</button><button type="button" data-a="hapus-trx" data-i="'+i+'">Hapus</button></td></tr>';
+    }).join(""):'<tr><td colspan="6">Belum ada transaksi.</td></tr>';
+  }
+  document.addEventListener("click",function(e){
+    var a=e.target.getAttribute&&e.target.getAttribute("data-a");if(!a)return;
+    var i=+e.target.getAttribute("data-i"),bk=muat(KB),tr=muat(KT);
+    if(a=="jadi"){$("t-nama").value=bk[i].nama;$("t-layanan").value="Booking "+bk[i].kode;$("t-total").focus()}
+    if(a=="hapus-bk"&&confirm("Hapus booking ini?")){bk.splice(i,1);simpan(KB,bk)}
+    if(a=="ubah"){tr[i].lunas=!tr[i].lunas;simpan(KT,tr)}
+    if(a=="hapus-trx"&&confirm("Hapus transaksi ini?")){tr.splice(i,1);simpan(KT,tr)}
+    render();
+  });
+  $("ftrx").addEventListener("submit",function(e){
+    e.preventDefault();
+    var t={waktu:Date.now(),nama:$("t-nama").value.trim(),layanan:$("t-layanan").value.trim(),total:Math.max(0,+$("t-total").value||0),metode:$("t-metode").value,lunas:$("t-status").value=="1"};
+    if(!t.nama||!t.layanan||t.total<=0){$("t-pesan").textContent="Isi nama, layanan, dan total lebih dari 0.";return}
+    var tr=muat(KT);tr.unshift(t);simpan(KT,tr);
+    $("t-pesan").textContent="Transaksi tersimpan.";this.reset();render();
+  });
+  $("csv").addEventListener("click",function(){
+    var q=function(s){return '"'+String(s).replace(/"/g,'""')+'"'};
+    var baris=["Tanggal,Pelanggan,Layanan,Metode,Total,Status"].concat(muat(KT).map(function(t){
+      return [q(new Date(t.waktu).toLocaleDateString("id-ID")),q(t.nama),q(t.layanan),q(t.metode),t.total,t.lunas?"Lunas":"Belum"].join(",");
+    }));
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(new Blob([baris.join("\n")],{type:"text/csv"}));
+    a.download="transaksi-bilas-laundry.csv";a.click();URL.revokeObjectURL(a.href);
+  });
+  render();
+})();
+</script>
+</body>
+</html>
