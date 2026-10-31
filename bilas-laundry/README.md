@@ -11,9 +11,11 @@ Website sederhana untuk usaha laundry: hitung biaya, booking jemput, pesan lewat
 - **Simpan pesanan dan kode pesanan** (contoh: `BL-1234`) dengan tombol salin kode
 - **Lacak cucian**: status Dijemput, Dicuci, Disetrika, Diantar (simulasi demo)
 - **Daftar harga**, kartu layanan, galeri sebelum dan sesudah, testimoni, dan FAQ
+- **Penanda buka/tutup** di bagian kontak sesuai jam buka
 - **Tombol WhatsApp melayang**, tombol kembali ke atas, dan sapaan sesuai waktu
 - **Mode terang dan gelap** dengan pilihan tersimpan di browser
-- Tampilan responsif untuk HP dan komputer, halaman `404.html` kustom
+- **Animasi muncul** saat halaman digulir (otomatis mati jika perangkat meminta gerakan dikurangi)
+- Tampilan responsif untuk HP dan komputer, halaman `404.html` kustom, dan pesan cadangan jika JavaScript mati
 
 ## Fitur untuk pemilik (admin)
 
@@ -39,12 +41,14 @@ HTML, CSS, dan JavaScript. Data pesanan, booking, transaksi, dan tema disimpan d
 - `admin.html`: halaman admin booking dan transaksi
 - `404.html`: halaman tidak ditemukan
 - `style.css`: tampilan
-- `script.js`: kalkulator, booking, pesanan, lacak status, tema, dan slider
+- `script.js`: kalkulator, booking, pesanan, lacak status, tema, slider, dan animasi
+- `robots.txt`: pengaturan penelusuran mesin pencari
+- `.gitignore`: daftar file yang tidak diunggah ke Git
 - `LICENSE`: lisensi MIT
 
 ## Mengubah data usaha
 
-Nama, alamat, jam buka, dan harga ada di `index.html`. Nomor WhatsApp ada di `script.js` (variabel `WA`) dan di `index.html` (tautan `wa.me`). Gunakan format `62...` tanpa angka 0 di depan dan tanpa tanda `+`.
+Nama, alamat, jam buka, dan harga ada di `index.html`. Nomor WhatsApp ada di `script.js` (variabel `WA`) dan di `index.html` (tautan `wa.me`). Gunakan format `62...` tanpa angka 0 di depan dan tanpa tanda `+`. Jam buka yang dipakai penanda buka/tutup ada di bagian bawah `script.js`.
 
 ## Catatan
 
