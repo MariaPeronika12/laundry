@@ -143,3 +143,23 @@
   },{threshold:.12});
   document.querySelectorAll("section .wrap").forEach(function(x){x.classList.add("muncul");io.observe(x)});
 })();
+
+/* Penanda buka/tutup di bagian kontak */
+(function(){
+  var el=document.querySelector("#kontak .sub");
+  if(!el)return;
+  var n=new Date(),h=n.getHours()+n.getMinutes()/60;
+  var buka=n.getDay()==0?(h>=9&&h<17):(h>=7&&h<20);
+  var b=document.createElement("strong");
+  b.textContent=buka?" ● Buka sekarang":" ● Sedang tutup";
+  b.style.color=buka?"var(--teal)":"#C2410C";
+  el.appendChild(b);
+})();
+
+/* Judul tab berubah saat ditinggal */
+(function(){
+  var asli=document.title;
+  document.addEventListener("visibilitychange",function(){
+    document.title=document.hidden?"Cucian menunggu \uD83E\uDDFA":asli;
+  });
+})();
