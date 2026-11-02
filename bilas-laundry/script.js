@@ -163,3 +163,63 @@
     document.title=document.hidden?"Cucian menunggu \uD83E\uDDFA":asli;
   });
 })();
+
+/* Keranjang multi-layanan, kode promo, dan paket langganan */
+(function(){
+  var KEY="bilas_keranjang",$=function(i){return document.getElementById(i)};
+  var PROMO={HEMAT10:{tipe:"persen",nilai:10,info:"Diskon 10%"},HEMAT5K:{tipe:"tetap",nilai:5000,info:"Potongan Rp5.000"}};
+  var st=(function(){try{return JSON.parse(localStorage.getItem(KEY))||{items:[],promo:""}}catch(e){return{items:[],promo:""}}})();
+  var rp=function(n){return "Rp"+Math.round(n).toLocaleString("id-ID")};
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+  function simpan(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+  function hitung(){
+    var sub=st.items.reduce(function(a,x){return a+x.sub},0),p=PROMO[st.promo],disk=0;
+    if(p)disk=p.tipe=="persen"?sub*p.nilai/100:Math.min(p.nilai,sub);
+    var ongkir=st.items.length?((sub-disk)>=50000?0:5000):0;
+    return{sub:sub,disk:disk,ongkir:ongkir,total:sub-disk+ongkir};
+  }
+  function render(){
+    var r=hitung();
+    $("cart-list").innerHTML=st.items.length?st.items.map(function(x,i){
+      return'<div class="item"><div><b>'+esc(x.nama)+'</b><small>'+esc(x.jumlah)+' '+esc(x.unit)+' × '+rp(x.harga)+'</small></div><div><strong>'+rp(x.sub)+'</strong><button type="button" class="chip" data-hapus="'+i+'" aria-label="Hapus '+esc(x.nama)+'">Hapus</button></div></div>';
+    }).join(""):'<p class="kosong">Keranjang masih kosong. Pilih layanan di kalkulator lalu klik "Tambah ke keranjang".</p>';
+    $("c-sub").textContent=rp(r.sub);$("c-disk").textContent=r.disk?"-"+rp(r.disk):"Rp0";
+    $("c-ongkir").textContent=r.ongkir?rp(r.ongkir):(st.items.length?"Gratis":"Rp0");$("c-total").textContent=rp(r.total);
+    if(st.promo&&PROMO[st.promo])$("promo").value=st.promo;
+  }
+  function pesan(t){$("c-pesan").textContent=t}
+  $("tambah").addEventListener("click",function(){
+    var s=$("layanan"),o=s.options[s.selectedIndex],jml=Math.min(50,Math.max(0,parseFloat($("berat").value)||0));
+    if(jml<=0){pesan("Masukkan jumlah lebih dari 0 di kalkulator.");return}
+    if(st.items.length>=10){pesan("Maksimal 10 layanan per keranjang.");return}
+    var harga=+s.value;st.items.push({nama:o.text.split(" – ")[0],jumlah:jml,unit:o.getAttribute("data-unit")||"kg",harga:harga,sub:harga*jml});
+    simpan();render();pesan("Ditambahkan ke keranjang.");
+    $("keranjang").scrollIntoView({behavior:"smooth"});
+  });
+  $("cart-list").addEventListener("click",function(e){
+    var i=e.target.getAttribute&&e.target.getAttribute("data-hapus");
+    if(i!==null&&i!==undefined&&i!==false){st.items.splice(+i,1);simpan();render()}
+  });
+  $("pakai").addEventListener("click",function(){
+    var k=$("promo").value.trim().toUpperCase();
+    if(!k){st.promo="";simpan();render();pesan("Kode promo dihapus.");return}
+    if(PROMO[k]){st.promo=k;simpan();render();pesan("Kode "+k+" dipakai: "+PROMO[k].info+".")}
+    else pesan("Kode promo tidak dikenal.");
+  });
+  $("c-kosong").addEventListener("click",function(){if(!st.items.length)return;if(confirm("Kosongkan keranjang?")){st.items=[];st.promo="";$("promo").value="";simpan();render();pesan("Keranjang dikosongkan.")}});
+  function nomor(){return $("wa").href.split("wa.me/")[1].split("?")[0]}
+  $("c-wa").addEventListener("click",function(){
+    if(!st.items.length){pesan("Keranjang masih kosong.");return}
+    var r=hitung(),t="Halo Bilas Laundry, saya mau pesan:\n"+st.items.map(function(x){return"- "+x.nama+" "+x.jumlah+" "+x.unit+" = "+rp(x.sub)}).join("\n");
+    if(r.disk)t+="\nPromo "+st.promo+": -"+rp(r.disk);
+    t+="\nAntar-jemput: "+(r.ongkir?rp(r.ongkir):"gratis")+"\nTotal: "+rp(r.total)+"\nAlamat: ";
+    window.open("https://wa.me/"+nomor()+"?text="+encodeURIComponent(t),"_blank","noopener");
+  });
+  document.querySelectorAll("[data-paket]").forEach(function(b){
+    b.addEventListener("click",function(){
+      var t="Halo Bilas Laundry, saya mau ambil paket langganan "+b.getAttribute("data-paket")+".\nNama: \nAlamat: ";
+      window.open("https://wa.me/"+nomor()+"?text="+encodeURIComponent(t),"_blank","noopener");
+    });
+  });
+  render();
+})();
