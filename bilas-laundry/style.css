@@ -198,3 +198,14 @@ button.btn{font:inherit;font-weight:600;cursor:pointer;width:100%}
 .pk .btn{margin-top:14px}
 @media (max-width:820px){.paket{grid-template-columns:1fr}}
 @media (max-width:480px){.promo{flex-direction:column}.promo .btn{width:100%}}
+
+/* Ulasan pelanggan dan pencarian FAQ */
+.rata{display:flex;align-items:center;gap:14px;margin:0 0 20px}
+.rata strong{font:800 52px "Bricolage Grotesque",sans-serif;color:var(--teal);line-height:1}
+.rata small{display:block;color:var(--muted)}
+.testi.baru{margin-top:16px}
+.testi:empty{display:none}
+.ulas{margin-top:28px}
+.ulas h3{font-size:22px;margin-bottom:4px}
+.cari-faq{width:100%;max-width:720px;font:inherit;padding:12px 14px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);margin-bottom:14px}
+.faq details[hidden]{display:none}
