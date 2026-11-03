@@ -223,3 +223,41 @@
   });
   render();
 })();
+
+/* Ulasan pelanggan dan pencarian FAQ */
+(function(){
+  var KEY="bilas_ulasan",$=function(i){return document.getElementById(i)};
+  function muat(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return[]}}
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+  function bintang(n){return"\u2605\u2605\u2605\u2605\u2605".slice(0,n)+"\u2606\u2606\u2606\u2606\u2606".slice(0,5-n)}
+  function render(){
+    var l=muat(),tot=15,cnt=3+l.length;
+    l.forEach(function(u){tot+=u.nilai});
+    var rata=tot/cnt;
+    $("u-rata").textContent=rata.toFixed(1).replace(".",",");
+    $("u-bintang").textContent=bintang(Math.round(rata));
+    $("u-jumlah").textContent="dari "+cnt+" ulasan";
+    $("u-daftar").innerHTML=l.map(function(u){
+      return'<figure><div class="stars" aria-label="'+u.nilai+' dari 5 bintang">'+bintang(u.nilai)+'</div><blockquote>'+esc(u.teks)+'</blockquote><figcaption><b>'+esc(u.nama)+'</b>Ulasan baru</figcaption></figure>';
+    }).join("");
+  }
+  $("fulasan").addEventListener("submit",function(e){
+    e.preventDefault();
+    var u={nama:$("u-nama").value.trim(),nilai:+$("u-nilai").value,teks:$("u-teks").value.trim()};
+    if(!u.nama||u.teks.length<10){$("u-pesan").textContent="Isi nama dan ulasan minimal 10 huruf.";return}
+    var l=muat();l.unshift(u);
+    try{localStorage.setItem(KEY,JSON.stringify(l.slice(0,6)))}catch(x){}
+    this.reset();$("u-pesan").textContent="Terima kasih atas ulasan Anda!";render();
+  });
+  render();
+
+  var c=$("faq-cari"),det=document.querySelectorAll(".faq details");
+  c.addEventListener("input",function(){
+    var q=c.value.trim().toLowerCase(),ada=0;
+    det.forEach(function(d){
+      var cocok=!q||d.textContent.toLowerCase().indexOf(q)>-1;
+      d.hidden=!cocok;if(cocok)ada++;
+    });
+    $("faq-kosong").hidden=ada>0;
+  });
+})();
