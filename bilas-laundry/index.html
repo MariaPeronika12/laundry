@@ -1,263 +1,258 @@
-/*
-  Bilas Laundry – script.js
-  Isi file:
-  1. Kalkulator biaya, estimasi selesai, dan tautan WhatsApp
-  2. Simpan pesanan dan lacak status cucian (localStorage)
-  3. Tombol tema terang/gelap
-  4. Slider sebelum & sesudah
-  5. Tombol kembali ke atas
-*/
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bilas Laundry – Cuci, Setrika, Antar</title>
+<meta name="description" content="Bilas Laundry: cuci kiloan, setrika, dan antar-jemput. Hitung biaya dan pesan lewat WhatsApp.">
+<meta name="author" content="MariaPeronika12">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧺</text></svg>">
+<meta name="theme-color" content="#128C87">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Bilas Laundry">
+<meta property="og:description" content="Cuci, setrika, antar-jemput. Hitung biaya dan pesan lewat WhatsApp.">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<noscript>
+  <p style="margin:0;padding:12px 16px;background:#FFC93C;color:#12303F;text-align:center;font-weight:600">
+    Aktifkan JavaScript agar kalkulator, booking, dan pelacakan cucian berfungsi.
+  </p>
+</noscript>
+<div class="wrap">
+  <header>
+    <a class="logo" href="#">Bilas Laundry</a>
+    <nav><a href="#harga">Harga</a><a href="#cara">Cara kerja</a><a href="#keranjang">Keranjang</a><a href="#paket">Paket</a><a href="#booking">Booking</a><a href="#lacak">Lacak</a><a href="#faq">FAQ</a><a href="#kontak">Kontak</a><button id="tema" class="tema" type="button" title="Ganti tema terang atau gelap" aria-label="Ganti tema terang atau gelap" aria-pressed="false">🌙</button></nav>
+  </header>
 
-(function(){
-  var WA="6281234567890";
-  var $=function(i){return document.getElementById(i)};
-  var rp=function(n){return "Rp"+Math.round(n).toLocaleString("id-ID")};
-  function update(){
-    var sel=$("layanan"),harga=+sel.value,kg=Math.min(50,Math.max(0,parseFloat($("berat").value)||0));
-    var unit=sel.options[sel.selectedIndex].getAttribute("data-unit")||"kg";
-    $("lblberat").textContent=unit=="kg"?"Perkiraan berat (kg)":"Jumlah ("+unit+")";
-    var antar=$("antar").checked,ongkir=0,info="";
-    if(antar){ongkir=(unit=="kg"&&kg>=5)?0:5000;info=ongkir?"Ongkos antar-jemput Rp5.000 (gratis mulai 5 kg).":"Antar-jemput gratis.";}
-    else info="Anda mengantar dan mengambil sendiri ke toko.";
-    if(kg<=0){ongkir=0;info="Masukkan jumlah lebih dari 0.";}
-    var total=harga*kg+ongkir;
-    var jam=+sel.options[sel.selectedIndex].getAttribute("data-jam")||48,d=new Date(Date.now()+jam*3600000);
-    var est=d.toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long"})+(jam<=12?", sekitar pukul "+d.toLocaleTimeString("id-ID",{hour:"2-digit",minute:"2-digit"}):"");
-    $("estimasi").textContent=kg>0?"Estimasi selesai: "+est:"";
-    $("total").textContent=rp(total);
-    $("ongkir").textContent=info+" Total final menyesuaikan timbangan.";
-    var teks="Halo Bilas Laundry, saya mau pesan:\n- Layanan: "+sel.options[sel.selectedIndex].text.split(" – ")[0]+
-      "\n- Jumlah: "+kg+" "+unit+"\n- "+(antar?"Antar-jemput":"Antar sendiri")+
-      "\n- Perkiraan total: "+rp(total)+"\n- Estimasi selesai: "+est+"\nAlamat: ";
-    $("wa").href="https://wa.me/"+WA+"?text="+encodeURIComponent(teks);
-  }
-  ["layanan","berat","antar"].forEach(function(i){$(i).addEventListener("input",update)});
-  update();
-})();
+  <div class="hero">
+    <div class="bubbles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <div>
+      <h1>Baju bersih, wangi, <span>sampai di pintu rumah.</span></h1>
+      <p>Kami jemput cucian Anda, cuci dengan deterjen lembut, lalu antar kembali tepat waktu dan rapi. Hitung biayanya dulu, pesan lewat WhatsApp.</p>
+    </div>
+    <div class="calc" id="hitung">
+      <h2>Hitung biaya cucian</h2>
+      <label for="layanan">Layanan</label>
+      <select id="layanan">
+        <option value="7000" data-jam="48">Cuci kiloan reguler (2 hari) – Rp7.000/kg</option>
+        <option value="9000" data-jam="48" selected>Cuci + setrika reguler (2 hari) – Rp9.000/kg</option>
+        <option value="14000" data-jam="6">Cuci + setrika ekspres (6 jam) – Rp14.000/kg</option>
+        <option value="5000" data-jam="48">Setrika saja (2 hari) – Rp5.000/kg</option>
+        <option value="35000" data-jam="72" data-unit="pasang">Cuci sepatu (3 hari) – Rp35.000/pasang</option>
+        <option value="15000" data-jam="96" data-unit="m²">Karpet (4 hari) – Rp15.000/m²</option>
+      </select>
+      <label for="berat" id="lblberat">Perkiraan berat (kg)</label>
+      <input id="berat" type="number" min="1" max="50" step="0.5" value="4" inputmode="decimal">
+      <label class="check"><input id="antar" type="checkbox" checked> Antar-jemput ke rumah</label>
+      <div class="total"><span>Perkiraan total</span><strong id="total">Rp0</strong></div>
+      <p class="note" id="ongkir"></p>
+      <p class="note estimasi" id="estimasi"></p>
+      <button class="btn" id="tambah" type="button">Tambah ke keranjang</button>
+      <button class="btn" id="simpan" type="button">Simpan pesanan &amp; dapatkan kode</button>
+      <p class="note" id="kode" role="status"></p>
+      <a class="btn" id="wa" href="#" target="_blank" rel="noopener">Pesan lewat WhatsApp</a>
+    </div>
+  </div>
+</div>
 
-/* Hari 9: pesanan, kode, dan lacak status (disimpan di browser) */
-(function(){
-  var KEY="bilas_pesanan",LANGKAH=["Dijemput","Dicuci","Disetrika","Diantar"],DETIK=20;
-  var $=function(i){return document.getElementById(i)},aktif=null;
-  function muat(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return[]}}
-  function simpan(l){try{localStorage.setItem(KEY,JSON.stringify(l))}catch(e){}}
-  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
-  function tahap(p){return Math.min(Math.floor((Date.now()-p.waktu)/1000/DETIK),LANGKAH.length-1)}
-  function tampil(p){
-    aktif=p?p.kode:null;
-    if(!p){$("hasil").innerHTML='<p class="kosong">Kode tidak ditemukan. Periksa lagi atau buat pesanan baru di kalkulator.</p>';return}
-    var t=tahap(p),li=LANGKAH.map(function(n,i){return'<li class="'+(i<t?"done":i==t?"now":"")+'">'+esc(n)+'</li>'}).join("");
-    $("hasil").innerHTML='<div class="detail"><div><b>'+esc(p.kode)+'</b><span>'+esc(p.layanan)+' · '+esc(p.kg)+' '+esc(p.unit||'kg')+' · '+(p.antar?"antar-jemput":"antar sendiri")+'</span></div><strong>'+esc(p.total)+'</strong></div><ol class="steps">'+li+'</ol><p class="note">'+(t==3?"Cucian sudah diantar. Terima kasih!":"Status saat ini: "+LANGKAH[t])+'</p>';
-  }
-  function cari(k){var p=muat().filter(function(x){return x.kode==k.trim().toUpperCase()})[0];tampil(p)}
-  function riwayat(){
-    var l=muat();
-    $("riwayat").innerHTML=l.length?l.map(function(p){return'<button type="button" class="chip" data-k="'+esc(p.kode)+'">'+esc(p.kode)+' · '+esc(p.total)+'</button>'}).join("")+'<button type="button" class="chip" data-hapus="1">Hapus riwayat</button>':'<p class="kosong">Belum ada pesanan tersimpan.</p>';
-  }
-  $("simpan").addEventListener("click",function(){
-    var s=$("layanan"),p={kode:"BL-"+Math.floor(1000+Math.random()*9000),layanan:s.options[s.selectedIndex].text.split(" – ")[0],kg:+$("berat").value||0,unit:s.options[s.selectedIndex].getAttribute("data-unit")||"kg",antar:$("antar").checked,total:$("total").textContent,waktu:Date.now()};
-    var l=muat();l.unshift(p);simpan(l.slice(0,10));
-    $("kode").textContent="Pesanan tersimpan. Kode Anda: "+p.kode;
-    var tb=document.createElement("button");tb.type="button";tb.className="chip";tb.textContent="Salin kode";
-    tb.addEventListener("click",function(){
-      if(navigator.clipboard){navigator.clipboard.writeText(p.kode).then(function(){tb.textContent="Tersalin \u2713"},function(){tb.textContent="Gagal menyalin"})}
-      else{tb.textContent="Tidak didukung"}
-    });
-    $("kode").appendChild(tb);
-    $("kodeinput").value=p.kode;tampil(p);riwayat();
-    $("lacak").scrollIntoView({behavior:"smooth"});
-  });
-  $("cari").addEventListener("click",function(){cari($("kodeinput").value)});
-  $("kodeinput").addEventListener("keydown",function(e){if(e.key=="Enter")cari(this.value)});
-  $("riwayat").addEventListener("click",function(e){
-    if(e.target.getAttribute&&e.target.getAttribute("data-hapus")){if(confirm("Hapus semua riwayat pesanan?")){simpan([]);aktif=null;$("hasil").innerHTML="";riwayat()}return}var k=e.target.getAttribute&&e.target.getAttribute("data-k");if(k){$("kodeinput").value=k;cari(k)}});
-  setInterval(function(){if(aktif)cari(aktif)},2000);
-  riwayat();
-})();
+<section id="keranjang"><div class="wrap">
+  <h2>Keranjang pesanan</h2>
+  <p class="sub">Gabungkan beberapa layanan dalam satu pesanan, lalu pakai kode promo (coba HEMAT10 atau HEMAT5K).</p>
+  <div class="cart">
+    <div id="cart-list"></div>
+    <div class="promo"><input id="promo" placeholder="Kode promo" aria-label="Kode promo" maxlength="12"><button class="btn" id="pakai" type="button">Pakai</button></div>
+    <p class="note" id="c-pesan" role="status"></p>
+    <dl class="rincian">
+      <div><dt>Subtotal</dt><dd id="c-sub">Rp0</dd></div>
+      <div><dt>Diskon</dt><dd id="c-disk">Rp0</dd></div>
+      <div><dt>Antar-jemput</dt><dd id="c-ongkir">Rp0</dd></div>
+      <div class="tot"><dt>Total</dt><dd id="c-total">Rp0</dd></div>
+    </dl>
+    <button class="btn" id="c-wa" type="button">Kirim keranjang lewat WhatsApp</button>
+    <button class="chip" id="c-kosong" type="button">Kosongkan keranjang</button>
+  </div>
+</div></section>
 
-/* Tombol tema terang/gelap */
-(function(){
-  var k="bilas_tema",d=document.documentElement,b=document.getElementById("tema"),t;
-  function pasang(x){d.setAttribute("data-theme",x);b.textContent=x=="dark"?"\u2600\uFE0F":"\uD83C\uDF19";b.setAttribute("aria-pressed",x=="dark")}
-  try{t=localStorage.getItem(k)}catch(e){}
-  if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
-  pasang(t);
-  b.addEventListener("click",function(){t=t=="dark"?"light":"dark";pasang(t);try{localStorage.setItem(k,t)}catch(e){}});
-})();
+<section id="layanan"><div class="wrap">
+  <h2>Layanan kami</h2>
+  <p class="sub">Pilih yang sesuai kebutuhan, semuanya dijemput dan diantar.</p>
+  <div class="cards">
+    <article class="card"><b>🧺</b><h3>Cuci Kiloan</h3><p>Cuci bersih dan wangi, siap dalam 2 hari.</p><span>Rp7.000/kg</span></article>
+    <article class="card"><b>👔</b><h3>Cuci + Setrika</h3><p>Rapi dan terlipat, tinggal masuk lemari.</p><span>Rp9.000/kg</span></article>
+    <article class="card"><b>⚡</b><h3>Ekspres 6 Jam</h3><p>Butuh cepat? Pagi dijemput, sore sudah balik.</p><span>Rp14.000/kg</span></article>
+    <article class="card"><b>🛏️</b><h3>Selimut &amp; Bedcover</h3><p>Dicuci khusus agar tetap lembut dan tebal.</p><span>Rp25.000/pcs</span></article>
+  </div>
+</div></section>
 
-/* Slider sebelum & sesudah */
-(function(){
-  var r=document.getElementById("ba-range"),s=document.getElementById("ba-sesudah"),g=document.getElementById("ba-garis");
-  function u(){s.style.clipPath="inset(0 0 0 "+r.value+"%)";g.style.left=r.value+"%"}
-  r.addEventListener("input",u);u();
-})();
+<section id="harga" class="alt"><div class="wrap">
+  <h2>Daftar harga</h2>
+  <p class="sub">Harga sudah termasuk deterjen dan pewangi. Berat ditimbang ulang saat cucian dijemput.</p>
+  <div class="scroll"><table>
+    <tr><th>Layanan</th><th>Durasi</th><th>Harga</th></tr>
+    <tr><td>Cuci kiloan</td><td>2 hari</td><td>Rp7.000/kg</td></tr>
+    <tr><td>Cuci + setrika</td><td>2 hari</td><td>Rp9.000/kg</td></tr>
+    <tr><td>Cuci + setrika ekspres</td><td>6 jam</td><td>Rp14.000/kg</td></tr>
+    <tr><td>Setrika saja</td><td>2 hari</td><td>Rp5.000/kg</td></tr>
+    <tr><td>Selimut / bedcover</td><td>3 hari</td><td>Rp25.000/pcs</td></tr>
+    <tr><td>Cuci sepatu</td><td>3 hari</td><td>Rp35.000/pasang</td></tr>
+    <tr><td>Karpet</td><td>4 hari</td><td>Rp15.000/m²</td></tr>
+    <tr><td>Antar-jemput</td><td>–</td><td>Gratis min. 5 kg, selain itu Rp5.000</td></tr>
+  </table></div>
+</div></section>
 
-/* Tombol kembali ke atas */
-(function(){
-  var b=document.getElementById("atas");
-  function cek(){b.hidden=window.scrollY<400}
-  window.addEventListener("scroll",cek,{passive:true});cek();
-  b.addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"})});
-})();
+<section id="paket"><div class="wrap">
+  <h2>Paket langganan</h2>
+  <p class="sub">Lebih hemat untuk cucian rutin. Berlaku 30 hari, sudah termasuk antar-jemput.</p>
+  <div class="paket">
+    <article class="pk"><h3>Hemat</h3><p>10 kg cuci + setrika</p><strong>Rp85.000</strong><small>Rp8.500 per kg</small><button class="btn" type="button" data-paket="Hemat (10 kg) Rp85.000">Ambil paket</button></article>
+    <article class="pk pop"><em>Populer</em><h3>Plus</h3><p>20 kg cuci + setrika</p><strong>Rp160.000</strong><small>Rp8.000 per kg</small><button class="btn" type="button" data-paket="Plus (20 kg) Rp160.000">Ambil paket</button></article>
+    <article class="pk"><h3>Keluarga</h3><p>40 kg cuci + setrika</p><strong>Rp300.000</strong><small>Rp7.500 per kg</small><button class="btn" type="button" data-paket="Keluarga (40 kg) Rp300.000">Ambil paket</button></article>
+  </div>
+</div></section>
 
-/* Sapaan sesuai waktu di bagian atas halaman */
-(function(){
-  var j=new Date().getHours();
-  var salam=j<11?"Selamat pagi":j<15?"Selamat siang":j<18?"Selamat sore":"Selamat malam";
-  var h1=document.querySelector(".hero h1");
-  if(!h1)return;
-  var p=document.createElement("p");
-  p.textContent=salam+"! Cucian menumpuk? Serahkan pada kami.";
-  p.style.cssText="margin:0 0 10px;font-weight:600;color:var(--teal)";
-  h1.parentNode.insertBefore(p,h1);
-})();
+<section id="cara"><div class="wrap">
+  <h2>Cara kerjanya</h2>
+  <p class="sub">Empat langkah, tanpa perlu keluar rumah.</p>
+  <ol>
+    <li><h3>Pesan</h3><p>Isi kalkulator di atas, lalu kirim lewat WhatsApp.</p></li>
+    <li><h3>Jemput</h3><p>Kurir datang ke alamat Anda dan menimbang cucian.</p></li>
+    <li><h3>Cuci</h3><p>Pakaian dipisah per warna, dicuci, dikeringkan, dan disetrika.</p></li>
+    <li><h3>Antar</h3><p>Cucian wangi dan terlipat rapi sampai di rumah.</p></li>
+  </ol>
+</div></section>
 
-/* Booking jemput cucian (disimpan di browser, lalu dikirim lewat WhatsApp) */
-(function(){
-  var f=document.getElementById("formbooking");
-  if(!f)return;
-  var KEY="bilas_booking",st=document.getElementById("bk-status"),tgl=document.getElementById("bk-tgl");
-  var n=new Date();
-  tgl.min=n.getFullYear()+"-"+String(n.getMonth()+1).padStart(2,"0")+"-"+String(n.getDate()).padStart(2,"0");
-  var v=function(i){return document.getElementById(i).value.trim()};
-  f.addEventListener("submit",function(e){
-    e.preventDefault();
-    var d={nama:v("bk-nama"),hp:v("bk-hp"),alamat:v("bk-alamat"),tgl:v("bk-tgl"),jam:v("bk-jam"),catatan:v("bk-catatan")};
-    if(!d.nama||!d.hp||!d.alamat||!d.tgl){st.textContent="Lengkapi nama, nomor HP, alamat, dan tanggal jemput.";return}
-    if(!/^[0-9+\-\s]{8,16}$/.test(d.hp)){st.textContent="Nomor HP tidak valid.";return}
-    var kode="BK-"+Math.floor(1000+Math.random()*9000);
-    try{var l=JSON.parse(localStorage.getItem(KEY))||[];l.unshift(Object.assign({kode:kode},d));localStorage.setItem(KEY,JSON.stringify(l.slice(0,10)))}catch(x){}
-    var teks="Halo Bilas Laundry, saya mau booking jemput cucian ("+kode+"):\n- Nama: "+d.nama+"\n- HP: "+d.hp+"\n- Alamat: "+d.alamat+"\n- Jemput: "+d.tgl+", "+d.jam+(d.catatan?"\n- Catatan: "+d.catatan:"");
-    var wa=document.getElementById("wa").href.split("wa.me/")[1].split("?")[0];
-    st.textContent="Booking "+kode+" tersimpan. Membuka WhatsApp untuk konfirmasi.";
-    window.open("https://wa.me/"+wa+"?text="+encodeURIComponent(teks),"_blank","noopener");
-    f.reset();
-  });
-})();
+<section id="tentang"><div class="wrap tentang">
+  <div>
+    <h2>Tentang kami</h2>
+    <p class="sub">Bilas Laundry berawal dari satu mesin cuci dan keinginan sederhana: pakaian pelanggan bersih, wangi, dan sampai tepat waktu. Kami memisahkan cucian per warna, memakai deterjen yang lembut di kulit, dan selalu memberi kabar lewat WhatsApp.</p>
+  </div>
+  <ul class="angka">
+    <li><b>1.000+</b><span>cucian selesai</span></li>
+    <li><b>6 jam</b><span>layanan ekspres</span></li>
+    <li><b>5 km</b><span>radius antar-jemput</span></li>
+  </ul>
+</div></section>
 
-/* Animasi muncul saat digulir */
-(function(){
-  if(!("IntersectionObserver" in window))return;
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("tampak");io.unobserve(e.target)}});
-  },{threshold:.12});
-  document.querySelectorAll("section .wrap").forEach(function(x){x.classList.add("muncul");io.observe(x)});
-})();
+<section id="galeri" class="alt"><div class="wrap">
+  <h2>Sebelum &amp; sesudah</h2>
+  <p class="sub">Geser untuk melihat perbedaan hasil cucian kami.</p>
+  <div class="ba">
+    <div class="ba-pane ba-sebelum"><span>Sebelum</span></div>
+    <div class="ba-pane ba-sesudah" id="ba-sesudah"><span>Sesudah</span></div>
+    <input type="range" min="0" max="100" value="50" id="ba-range" aria-label="Geser perbandingan sebelum dan sesudah">
+    <div class="ba-garis" id="ba-garis"></div>
+  </div>
+</div></section>
 
-/* Penanda buka/tutup di bagian kontak */
-(function(){
-  var el=document.querySelector("#kontak .sub");
-  if(!el)return;
-  var n=new Date(),h=n.getHours()+n.getMinutes()/60;
-  var buka=n.getDay()==0?(h>=9&&h<17):(h>=7&&h<20);
-  var b=document.createElement("strong");
-  b.textContent=buka?" ● Buka sekarang":" ● Sedang tutup";
-  b.style.color=buka?"var(--teal)":"#C2410C";
-  el.appendChild(b);
-})();
+<section id="booking"><div class="wrap">
+  <h2>Booking jemput cucian</h2>
+  <p class="sub">Isi data di bawah. Kami jadwalkan penjemputan lalu konfirmasi lewat WhatsApp.</p>
+  <form class="booking" id="formbooking" novalidate>
+    <label for="bk-nama">Nama</label>
+    <input id="bk-nama" type="text" autocomplete="name" placeholder="Nama lengkap">
+    <label for="bk-hp">Nomor HP</label>
+    <input id="bk-hp" type="tel" autocomplete="tel" placeholder="0812-xxxx-xxxx">
+    <label for="bk-alamat">Alamat jemput</label>
+    <textarea id="bk-alamat" autocomplete="street-address" placeholder="Jalan, nomor, patokan"></textarea>
+    <div class="dua">
+      <div><label for="bk-tgl">Tanggal jemput</label><input id="bk-tgl" type="date"></div>
+      <div><label for="bk-jam">Jam jemput</label>
+        <select id="bk-jam">
+          <option>08.00–10.00</option><option>10.00–12.00</option><option>13.00–15.00</option><option>15.00–17.00</option>
+        </select></div>
+    </div>
+    <label for="bk-catatan">Catatan (opsional)</label>
+    <input id="bk-catatan" type="text" placeholder="Contoh: ada selimut besar">
+    <button class="btn" type="submit">Kirim booking lewat WhatsApp</button>
+    <p class="note" id="bk-status" role="status"></p>
+  </form>
+</div></section>
 
-/* Judul tab berubah saat ditinggal */
-(function(){
-  var asli=document.title;
-  document.addEventListener("visibilitychange",function(){
-    document.title=document.hidden?"Cucian menunggu \uD83E\uDDFA":asli;
-  });
-})();
+<section id="lacak"><div class="wrap">
+  <h2>Lacak cucian</h2>
+  <p class="sub">Masukkan kode pesanan Anda. Untuk demo, status berpindah otomatis setiap 20 detik.</p>
+  <div class="lacak">
+    <div class="cari"><input id="kodeinput" placeholder="Contoh: BL-1234" aria-label="Kode pesanan" maxlength="8"><button class="btn" id="cari" type="button">Cek status</button></div>
+    <div id="hasil" aria-live="polite"></div>
+    <h3>Pesanan terakhir</h3>
+    <div id="riwayat"></div>
+  </div>
+</div></section>
 
-/* Keranjang multi-layanan, kode promo, dan paket langganan */
-(function(){
-  var KEY="bilas_keranjang",$=function(i){return document.getElementById(i)};
-  var PROMO={HEMAT10:{tipe:"persen",nilai:10,info:"Diskon 10%"},HEMAT5K:{tipe:"tetap",nilai:5000,info:"Potongan Rp5.000"}};
-  var st=(function(){try{return JSON.parse(localStorage.getItem(KEY))||{items:[],promo:""}}catch(e){return{items:[],promo:""}}})();
-  var rp=function(n){return "Rp"+Math.round(n).toLocaleString("id-ID")};
-  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
-  function simpan(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
-  function hitung(){
-    var sub=st.items.reduce(function(a,x){return a+x.sub},0),p=PROMO[st.promo],disk=0;
-    if(p)disk=p.tipe=="persen"?sub*p.nilai/100:Math.min(p.nilai,sub);
-    var ongkir=st.items.length?((sub-disk)>=50000?0:5000):0;
-    return{sub:sub,disk:disk,ongkir:ongkir,total:sub-disk+ongkir};
-  }
-  function render(){
-    var r=hitung();
-    $("cart-list").innerHTML=st.items.length?st.items.map(function(x,i){
-      return'<div class="item"><div><b>'+esc(x.nama)+'</b><small>'+esc(x.jumlah)+' '+esc(x.unit)+' × '+rp(x.harga)+'</small></div><div><strong>'+rp(x.sub)+'</strong><button type="button" class="chip" data-hapus="'+i+'" aria-label="Hapus '+esc(x.nama)+'">Hapus</button></div></div>';
-    }).join(""):'<p class="kosong">Keranjang masih kosong. Pilih layanan di kalkulator lalu klik "Tambah ke keranjang".</p>';
-    $("c-sub").textContent=rp(r.sub);$("c-disk").textContent=r.disk?"-"+rp(r.disk):"Rp0";
-    $("c-ongkir").textContent=r.ongkir?rp(r.ongkir):(st.items.length?"Gratis":"Rp0");$("c-total").textContent=rp(r.total);
-    if(st.promo&&PROMO[st.promo])$("promo").value=st.promo;
-  }
-  function pesan(t){$("c-pesan").textContent=t}
-  $("tambah").addEventListener("click",function(){
-    var s=$("layanan"),o=s.options[s.selectedIndex],jml=Math.min(50,Math.max(0,parseFloat($("berat").value)||0));
-    if(jml<=0){pesan("Masukkan jumlah lebih dari 0 di kalkulator.");return}
-    if(st.items.length>=10){pesan("Maksimal 10 layanan per keranjang.");return}
-    var harga=+s.value;st.items.push({nama:o.text.split(" – ")[0],jumlah:jml,unit:o.getAttribute("data-unit")||"kg",harga:harga,sub:harga*jml});
-    simpan();render();pesan("Ditambahkan ke keranjang.");
-    $("keranjang").scrollIntoView({behavior:"smooth"});
-  });
-  $("cart-list").addEventListener("click",function(e){
-    var i=e.target.getAttribute&&e.target.getAttribute("data-hapus");
-    if(i!==null&&i!==undefined&&i!==false){st.items.splice(+i,1);simpan();render()}
-  });
-  $("pakai").addEventListener("click",function(){
-    var k=$("promo").value.trim().toUpperCase();
-    if(!k){st.promo="";simpan();render();pesan("Kode promo dihapus.");return}
-    if(PROMO[k]){st.promo=k;simpan();render();pesan("Kode "+k+" dipakai: "+PROMO[k].info+".")}
-    else pesan("Kode promo tidak dikenal.");
-  });
-  $("c-kosong").addEventListener("click",function(){if(!st.items.length)return;if(confirm("Kosongkan keranjang?")){st.items=[];st.promo="";$("promo").value="";simpan();render();pesan("Keranjang dikosongkan.")}});
-  function nomor(){return $("wa").href.split("wa.me/")[1].split("?")[0]}
-  $("c-wa").addEventListener("click",function(){
-    if(!st.items.length){pesan("Keranjang masih kosong.");return}
-    var r=hitung(),t="Halo Bilas Laundry, saya mau pesan:\n"+st.items.map(function(x){return"- "+x.nama+" "+x.jumlah+" "+x.unit+" = "+rp(x.sub)}).join("\n");
-    if(r.disk)t+="\nPromo "+st.promo+": -"+rp(r.disk);
-    t+="\nAntar-jemput: "+(r.ongkir?rp(r.ongkir):"gratis")+"\nTotal: "+rp(r.total)+"\nAlamat: ";
-    window.open("https://wa.me/"+nomor()+"?text="+encodeURIComponent(t),"_blank","noopener");
-  });
-  document.querySelectorAll("[data-paket]").forEach(function(b){
-    b.addEventListener("click",function(){
-      var t="Halo Bilas Laundry, saya mau ambil paket langganan "+b.getAttribute("data-paket")+".\nNama: \nAlamat: ";
-      window.open("https://wa.me/"+nomor()+"?text="+encodeURIComponent(t),"_blank","noopener");
-    });
-  });
-  render();
-})();
+<section id="testimoni" class="alt"><div class="wrap">
+  <h2>Kata pelanggan</h2>
+  <p class="sub">Cerita singkat dari mereka yang sudah mencoba.</p>
+  <div class="testi">
+    <figure><div class="stars" aria-label="5 dari 5 bintang">★★★★★</div><blockquote>Dijemput pagi, sore sudah wangi dan rapi. Sangat membantu waktu sibuk kuliah.</blockquote><figcaption><b>Sari</b>Mahasiswi</figcaption></figure>
+    <figure><div class="stars" aria-label="5 dari 5 bintang">★★★★★</div><blockquote>Layanan ekspres benar-benar 6 jam. Seragam kerja saya selalu siap tepat waktu.</blockquote><figcaption><b>Budi</b>Karyawan</figcaption></figure>
+    <figure><div class="stars" aria-label="5 dari 5 bintang">★★★★★</div><blockquote>Bedcover bersih dan tetap tebal. Harganya jelas, tidak ada biaya tambahan.</blockquote><figcaption><b>Ibu Rina</b>Ibu rumah tangga</figcaption></figure>
+  </div>
+  <div class="rata"><strong id="u-rata">5,0</strong><div><span id="u-bintang" class="stars" aria-hidden="true">★★★★★</span><small id="u-jumlah">dari 3 ulasan</small></div></div>
+  <div id="u-daftar" class="testi baru"></div>
+  <form id="fulasan" class="booking ulas" novalidate>
+    <h3>Tulis ulasan Anda</h3>
+    <label for="u-nama">Nama</label>
+    <input id="u-nama" type="text" maxlength="30" placeholder="Nama Anda">
+    <label for="u-nilai">Nilai</label>
+    <select id="u-nilai"><option value="5">★★★★★ (5)</option><option value="4">★★★★☆ (4)</option><option value="3">★★★☆☆ (3)</option><option value="2">★★☆☆☆ (2)</option><option value="1">★☆☆☆☆ (1)</option></select>
+    <label for="u-teks">Ulasan</label>
+    <textarea id="u-teks" maxlength="200" placeholder="Ceritakan pengalaman Anda (minimal 10 huruf)"></textarea>
+    <button class="btn" type="submit">Kirim ulasan</button>
+    <p class="note" id="u-pesan" role="status"></p>
+  </form>
+</div></section>
 
-/* Ulasan pelanggan dan pencarian FAQ */
-(function(){
-  var KEY="bilas_ulasan",$=function(i){return document.getElementById(i)};
-  function muat(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return[]}}
-  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
-  function bintang(n){return"\u2605\u2605\u2605\u2605\u2605".slice(0,n)+"\u2606\u2606\u2606\u2606\u2606".slice(0,5-n)}
-  function render(){
-    var l=muat(),tot=15,cnt=3+l.length;
-    l.forEach(function(u){tot+=u.nilai});
-    var rata=tot/cnt;
-    $("u-rata").textContent=rata.toFixed(1).replace(".",",");
-    $("u-bintang").textContent=bintang(Math.round(rata));
-    $("u-jumlah").textContent="dari "+cnt+" ulasan";
-    $("u-daftar").innerHTML=l.map(function(u){
-      return'<figure><div class="stars" aria-label="'+u.nilai+' dari 5 bintang">'+bintang(u.nilai)+'</div><blockquote>'+esc(u.teks)+'</blockquote><figcaption><b>'+esc(u.nama)+'</b>Ulasan baru</figcaption></figure>';
-    }).join("");
-  }
-  $("fulasan").addEventListener("submit",function(e){
-    e.preventDefault();
-    var u={nama:$("u-nama").value.trim(),nilai:+$("u-nilai").value,teks:$("u-teks").value.trim()};
-    if(!u.nama||u.teks.length<10){$("u-pesan").textContent="Isi nama dan ulasan minimal 10 huruf.";return}
-    var l=muat();l.unshift(u);
-    try{localStorage.setItem(KEY,JSON.stringify(l.slice(0,6)))}catch(x){}
-    this.reset();$("u-pesan").textContent="Terima kasih atas ulasan Anda!";render();
-  });
-  render();
+<section id="faq"><div class="wrap">
+  <h2>Pertanyaan umum</h2>
+  <p class="sub">Jawaban singkat untuk hal yang paling sering ditanyakan.</p>
+  <input id="faq-cari" class="cari-faq" type="search" placeholder="Cari pertanyaan..." aria-label="Cari pertanyaan">
+  <p id="faq-kosong" class="kosong" hidden>Tidak ada pertanyaan yang cocok.</p>
+  <div class="faq">
+    <details>
+      <summary>Berapa lama cucian selesai?</summary>
+      <p>Layanan reguler selesai dalam 2 hari, ekspres dalam 6 jam, dan selimut atau bedcover dalam 3 hari.</p>
+    </details>
+    <details>
+      <summary>Apakah ada minimal berat cucian?</summary>
+      <p>Tidak ada minimal. Antar-jemput gratis mulai 5 kg, di bawah itu dikenakan Rp5.000.</p>
+    </details>
+    <details>
+      <summary>Bagaimana jika pakaian luntur atau rusak?</summary>
+      <p>Pakaian dipisah per warna sebelum dicuci. Jika ada kerusakan dari pihak kami, hubungi kami maksimal 1 hari setelah cucian diterima.</p>
+    </details>
+    <details>
+      <summary>Metode pembayaran apa yang tersedia?</summary>
+      <p>Tunai, transfer bank, dan dompet digital saat cucian diantar atau diambil.</p>
+    </details>
+    <details>
+      <summary>Area mana saja yang dilayani?</summary>
+      <p>Radius 5 km dari toko. Di luar itu, tanyakan lewat WhatsApp.</p>
+    </details>
+  </div>
+</div></section>
 
-  var c=$("faq-cari"),det=document.querySelectorAll(".faq details");
-  c.addEventListener("input",function(){
-    var q=c.value.trim().toLowerCase(),ada=0;
-    det.forEach(function(d){
-      var cocok=!q||d.textContent.toLowerCase().indexOf(q)>-1;
-      d.hidden=!cocok;if(cocok)ada++;
-    });
-    $("faq-kosong").hidden=ada>0;
-  });
-})();
+<section id="kontak" class="alt"><div class="wrap contact">
+  <div>
+    <h2>Kontak &amp; jam buka</h2>
+    <p class="sub">Senin–Sabtu 07.00–20.00, Minggu 09.00–17.00.</p>
+    <a class="btn" href="https://wa.me/6281234567890" target="_blank" rel="noopener" style="display:inline-block">Chat WhatsApp</a>
+  </div>
+  <div>
+    <p><strong>Alamat</strong><br>Jl. Contoh Raya No. 12, Jakarta</p>
+    <p><strong>WhatsApp</strong><br>0812-3456-7890</p>
+    <p><strong>Area layanan</strong><br>Radius 5 km dari toko.</p>
+  </div>
+</div></section>
+
+<footer><div class="wrap">© 2026 Bilas Laundry. Semua hak dilindungi.</div></footer>
+
+<button id="atas" class="atas" type="button" aria-label="Kembali ke atas" hidden>↑</button>
+
+<a class="wa-float" href="https://wa.me/6281234567890" target="_blank" rel="noopener" aria-label="Chat WhatsApp"><span>💬</span> Chat</a>
+
+<script src="script.js"></script>
+</body>
+</html>
