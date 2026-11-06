@@ -209,3 +209,13 @@ button.btn{font:inherit;font-weight:600;cursor:pointer;width:100%}
 .ulas h3{font-size:22px;margin-bottom:4px}
 .cari-faq{width:100%;max-width:720px;font:inherit;padding:12px 14px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);margin-bottom:14px}
 .faq details[hidden]{display:none}
+
+/* Tampilan saat dicetak */
+@media print{
+  nav,.tema,.wa-float,.atas,.bubbles,.lewati,.cari,.promo,#tambah,#simpan,#c-wa,#c-kosong,.booking,.ulas,.cari-faq{display:none !important}
+  body{background:#fff !important;color:#000 !important;font-size:12pt}
+  section{padding:16px 0 !important;background:none !important}
+  .muncul{opacity:1 !important;transform:none !important}
+  .calc,.cart,.card,.pk,.testi figure,.faq details{box-shadow:none !important;break-inside:avoid}
+  a{color:#000;text-decoration:none}
+}
