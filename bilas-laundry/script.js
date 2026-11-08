@@ -261,3 +261,25 @@
     $("faq-kosong").hidden=ada>0;
   });
 })();
+
+/* Rekomendasi paket berdasarkan kg per bulan */
+(function(){
+  var i=document.getElementById("kg-bulan"),o=document.getElementById("saran-hasil");
+  if(!i)return;
+  var KILO=9000,PAKET=[{n:"Hemat",kg:10,h:85000},{n:"Plus",kg:20,h:160000},{n:"Keluarga",kg:40,h:300000}];
+  var rp=function(n){return "Rp"+Math.round(n).toLocaleString("id-ID")};
+  function hitung(){
+    var k=Math.min(100,Math.max(0,parseFloat(i.value)||0));
+    if(k<=0){o.textContent="Masukkan jumlah kg per bulan.";return}
+    var kiloan=k*KILO,best={n:"Kiloan reguler",total:kiloan};
+    PAKET.forEach(function(p){
+      var total=p.h+Math.max(0,k-p.kg)*KILO;
+      if(total<best.total)best={n:"Paket "+p.n,total:total};
+    });
+    var hemat=kiloan-best.total;
+    o.textContent=hemat>0
+      ?"Rekomendasi: "+best.n+" ("+rp(best.total)+"). Hemat "+rp(hemat)+" dibanding kiloan ("+rp(kiloan)+")."
+      :"Untuk "+k+" kg per bulan, kiloan reguler paling hemat ("+rp(kiloan)+").";
+  }
+  i.addEventListener("input",hitung);hitung();
+})();
