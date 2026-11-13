@@ -180,6 +180,8 @@
   }
   function render(){
     var r=hitung();
+    var tl=document.querySelector('nav a[href="#keranjang"]');
+    if(tl)tl.textContent=st.items.length?"Keranjang ("+st.items.length+")":"Keranjang";
     $("cart-list").innerHTML=st.items.length?st.items.map(function(x,i){
       return'<div class="item"><div><b>'+esc(x.nama)+'</b><small>'+esc(x.jumlah)+' '+esc(x.unit)+' × '+rp(x.harga)+'</small></div><div><strong>'+rp(x.sub)+'</strong><button type="button" class="chip" data-hapus="'+i+'" aria-label="Hapus '+esc(x.nama)+'">Hapus</button></div></div>';
     }).join(""):'<p class="kosong">Keranjang masih kosong. Pilih layanan di kalkulator lalu klik "Tambah ke keranjang".</p>';
