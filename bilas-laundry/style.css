@@ -1,3 +1,4 @@
+/* Bilas Laundry – style.css: warna memakai variabel di :root */
 :root{
   --bg:#F3FBFA;--surface:#FFFFFF;--ink:#12303F;--muted:#4C6672;--line:#CFE6E4;
   --teal:#128C87;--teal-ink:#FFFFFF;--sun:#FFC93C;--sun-ink:#12303F;--wash:#D9F1F0;
