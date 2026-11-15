@@ -216,3 +216,6 @@ button.btn{font:inherit;font-weight:600;cursor:pointer;width:100%}
 .saran label{margin-top:0}
 .saran input{width:100%;font:inherit;padding:12px 14px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
 .saran .note{font-weight:600;color:var(--teal);margin-top:10px}
+
+/* Efek tekan pada tombol */
+.btn:active,.chip:active{transform:scale(.97)}
