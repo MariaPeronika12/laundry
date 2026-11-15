@@ -285,3 +285,25 @@
   }
   i.addEventListener("input",hitung);hitung();
 })();
+
+/* Tombol bagikan situs */
+(function(){
+  var b=document.getElementById("bagikan");
+  if(!b)return;
+  b.addEventListener("click",function(){
+    var d={title:document.title,text:"Cek Bilas Laundry: cuci, setrika, dan antar-jemput.",url:location.href};
+    if(navigator.share){navigator.share(d).catch(function(){})}
+    else if(navigator.clipboard){navigator.clipboard.writeText(location.href).then(function(){b.textContent="Tautan tersalin \u2713"},function(){b.textContent="Gagal menyalin"})}
+    else{b.textContent="Tidak didukung"}
+  });
+})();
+
+/* Tekan "/" untuk langsung mencari di FAQ */
+(function(){
+  var c=document.getElementById("faq-cari");
+  if(!c)return;
+  document.addEventListener("keydown",function(e){
+    var t=e.target.tagName;
+    if(e.key=="/"&&t!="INPUT"&&t!="TEXTAREA"&&t!="SELECT"){e.preventDefault();c.focus();c.scrollIntoView({behavior:"smooth",block:"center"})}
+  });
+})();
