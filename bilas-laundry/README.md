@@ -68,3 +68,7 @@ HTML, CSS, dan JavaScript. Data pesanan, keranjang, booking, ulasan, transaksi, 
 - Pelacakan status hanya simulasi di sisi browser.
 - Data booking, ulasan, keranjang, dan transaksi tersimpan per browser dan perangkat, belum tersambung antar-perangkat. Halaman admin juga belum memakai password. Untuk pemakaian sungguhan dibutuhkan server dan database.
 - Rencana berikutnya: login admin dan penyimpanan data di server.
+
+## Kontribusi
+
+Saran dan perbaikan sangat diterima. Buka *issue* di GitHub atau kirim *pull request* dengan deskripsi singkat perubahan Anda.
