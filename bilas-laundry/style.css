@@ -1,15 +1,15 @@
 /* Bilas Laundry – style.css: warna memakai variabel di :root */
 :root{
-  --bg:#F3FBFA;--surface:#FFFFFF;--ink:#12303F;--muted:#4C6672;--line:#CFE6E4;
-  --teal:#128C87;--teal-ink:#FFFFFF;--sun:#FFC93C;--sun-ink:#12303F;--wash:#D9F1F0;
+  --bg:#FFF5F8;--surface:#FFFFFF;--ink:#3B1230;--muted:#7A5568;--line:#F5D0DE;
+  --teal:#D6336C;--teal-ink:#FFFFFF;--sun:#FFC93C;--sun-ink:#3B1230;--wash:#FFE3EC;
   box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0D1F28;--surface:#14303C;--ink:#E8F5F4;--muted:#9DBBC2;--line:#25465A;
-  --teal:#3CC4BC;--teal-ink:#0D1F28;--wash:#173B47;}}
+  --bg:#2A1020;--surface:#3A1830;--ink:#FFEAF2;--muted:#D9A7BD;--line:#5A2A47;
+  --teal:#FF7FA8;--teal-ink:#2A1020;--wash:#4A1F3A;}}
 :root[data-theme="dark"]{
-  --bg:#0D1F28;--surface:#14303C;--ink:#E8F5F4;--muted:#9DBBC2;--line:#25465A;
-  --teal:#3CC4BC;--teal-ink:#0D1F28;--wash:#173B47;}
+  --bg:#2A1020;--surface:#3A1830;--ink:#FFEAF2;--muted:#D9A7BD;--line:#5A2A47;
+  --teal:#FF7FA8;--teal-ink:#2A1020;--wash:#4A1F3A;}
 html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 Figtree,system-ui,sans-serif}
@@ -67,7 +67,7 @@ footer{padding:28px 0 36px;color:var(--muted);font-size:14px;border-top:1px soli
 /* Hari 6: tampilan lebih menarik */
 body{background:radial-gradient(1100px 480px at 90% -10%,var(--wash),transparent 60%),var(--bg)}
 .hero{position:relative}
-.hero h1 span{background:linear-gradient(90deg,var(--teal),#3B82F6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 span{background:linear-gradient(90deg,var(--teal),#FF7A59);-webkit-background-clip:text;background-clip:text;color:transparent}
 .bubbles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
 .bubbles i{position:absolute;bottom:-60px;border-radius:50%;border:2px solid var(--teal);opacity:.35;animation:naik 12s linear infinite}
 .bubbles i:nth-child(1){left:5%;width:26px;height:26px}
@@ -140,19 +140,19 @@ button.btn{font:inherit;font-weight:600;cursor:pointer;width:100%}
 /* Galeri sebelum & sesudah */
 .ba{position:relative;max-width:760px;aspect-ratio:16/9;border-radius:20px;overflow:hidden;border:2px solid var(--ink);touch-action:pan-y}
 .ba-pane{position:absolute;inset:0;display:flex;align-items:flex-end;padding:16px}
-.ba-pane span{padding:6px 14px;border-radius:999px;background:rgba(18,48,63,.85);color:#fff;font-weight:600;font-size:14px}
+.ba-pane span{padding:6px 14px;border-radius:999px;background:rgba(59,18,48,.85);color:#fff;font-weight:600;font-size:14px}
 .ba-sebelum{background:radial-gradient(circle at 22% 38%,#6b4a2b 0 7%,transparent 8%),radial-gradient(circle at 58% 58%,#7a5a35 0 9%,transparent 10%),radial-gradient(circle at 80% 28%,#5a3d22 0 5%,transparent 6%),radial-gradient(circle at 38% 72%,#6b4a2b 0 4%,transparent 5%),linear-gradient(135deg,#b9a98f,#a39279)}
 .ba-sesudah{justify-content:flex-end;background:radial-gradient(circle at 72% 30%,rgba(255,255,255,.8) 0 4%,transparent 5%),radial-gradient(circle at 30% 65%,rgba(255,255,255,.6) 0 3%,transparent 4%),linear-gradient(135deg,#e9f8f7,#b9e6e3);clip-path:inset(0 0 0 50%)}
 .ba input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;z-index:3}
 .ba-garis{position:absolute;top:0;bottom:0;left:50%;width:4px;margin-left:-2px;background:#fff;z-index:2;pointer-events:none}
-.ba-garis::after{content:"\2194";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:var(--sun);color:#12303F;display:grid;place-items:center;font-weight:800;border:2px solid #12303F}
+.ba-garis::after{content:"\2194";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:var(--sun);color:#3B1230;display:grid;place-items:center;font-weight:800;border:2px solid #3B1230}
 .ba input:focus-visible ~ .ba-garis{box-shadow:0 0 0 4px var(--sun)}
 
 /* Estimasi selesai dan tombol kembali ke atas */
 .estimasi{font-weight:600;color:var(--teal)}
 .atas{position:fixed;left:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:50;width:46px;height:46px;border-radius:50%;border:2px solid var(--ink);background:var(--surface);color:var(--ink);font-size:20px;font-weight:800;cursor:pointer}
 .atas[hidden]{display:none}
-.atas:hover{background:var(--sun);color:#12303F}
+.atas:hover{background:var(--sun);color:#3B1230}
 
 /* Tentang kami */
 .tentang{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center}
@@ -192,7 +192,7 @@ button.btn{font:inherit;font-weight:600;cursor:pointer;width:100%}
 .paket{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .pk{position:relative;background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:6px}
 .pk.pop{border-color:var(--teal);box-shadow:0 10px 0 var(--wash)}
-.pk em{position:absolute;top:-12px;right:16px;background:var(--sun);color:#12303F;font-style:normal;font-weight:600;font-size:13px;padding:3px 12px;border-radius:999px}
+.pk em{position:absolute;top:-12px;right:16px;background:var(--sun);color:#3B1230;font-style:normal;font-weight:600;font-size:13px;padding:3px 12px;border-radius:999px}
 .pk h3{font-size:22px}.pk p{margin:0;color:var(--muted)}
 .pk strong{font:800 30px "Bricolage Grotesque",sans-serif;color:var(--teal);margin-top:8px}
 .pk small{color:var(--muted)}
@@ -219,3 +219,6 @@ button.btn{font:inherit;font-weight:600;cursor:pointer;width:100%}
 
 /* Efek tekan pada tombol */
 .btn:active,.chip:active{transform:scale(.97)}
+
+/* Pertanyaan FAQ berubah warna saat disentuh */
+.faq summary:hover{color:var(--teal)}
