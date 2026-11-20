@@ -108,8 +108,9 @@
   if(!h1)return;
   var p=document.createElement("p");
   p.textContent=salam+"! Cucian menumpuk? Serahkan pada kami.";
-  p.style.cssText="margin:0 0 10px;font-weight:600;color:var(--teal)";
-  h1.parentNode.insertBefore(p,h1);
+  p.style.cssText="margin:0 0 12px;font-weight:600;color:var(--teal)";
+  var anchor=h1.parentNode.querySelector(".eyebrow")||h1;
+  anchor.parentNode.insertBefore(p,anchor);
 })();
 
 /* Booking jemput cucian (disimpan di browser, lalu dikirim lewat WhatsApp) */

@@ -9,7 +9,7 @@
 :root[data-theme="dark"]{
   --bg:#0D1F28;--surface:#14303C;--ink:#E8F5F4;--muted:#9DBBC2;--line:#25465A;
   --teal:#3CC4BC;--teal-ink:#0D1F28;--wash:#173B47;}
-html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+html{scroll-padding-top:calc(84px + env(safe-area-inset-top,0px));scroll-behavior:smooth}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 Figtree,system-ui,sans-serif}
 h1,h2,h3{font-family:"Bricolage Grotesque",Figtree,system-ui,sans-serif;line-height:1.1;margin:0}
@@ -66,7 +66,7 @@ footer{padding:28px 0 36px;color:var(--muted);font-size:14px;border-top:1px soli
 /* Hari 6: tampilan lebih menarik */
 body{background:radial-gradient(1100px 480px at 90% -10%,var(--wash),transparent 60%),var(--bg)}
 .hero{position:relative}
-.hero h1 span{background:linear-gradient(90deg,var(--teal),#3B82F6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 span{background:linear-gradient(90deg,var(--teal),#FF8FB8);-webkit-background-clip:text;background-clip:text;color:transparent}
 .bubbles{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
 .bubbles i{position:absolute;bottom:-60px;border-radius:50%;border:2px solid var(--teal);opacity:.35;animation:naik 12s linear infinite}
 .bubbles i:nth-child(1){left:5%;width:26px;height:26px}
@@ -173,3 +173,31 @@ button.btn{font:inherit;font-weight:600;cursor:pointer;width:100%}
 .muncul{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
 .muncul.tampak{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.muncul{opacity:1;transform:none;transition:none}}
+
+/* Penyempurnaan tampilan beranda */
+.site-header{position:sticky;top:0;z-index:40;padding:0;background:var(--bg);background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.site-header .header-inner{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:14px;padding-bottom:14px}
+.site-header .logo{font-size:22px;white-space:nowrap}
+.site-header nav{display:flex;align-items:center;flex-wrap:wrap;gap:2px 18px;margin-left:auto}
+.site-header nav a{margin-left:0}
+.site-header .tema{margin-left:2px;flex:none}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;margin:0 0 16px;padding:6px 14px;border-radius:999px;background:var(--wash);color:var(--teal);font-size:13px;font-weight:800;letter-spacing:.03em;text-transform:uppercase}
+.trust{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-size:14px;font-weight:600}
+.trust li{display:flex;align-items:center;gap:8px}
+.trust li::before{content:"\2713";display:grid;place-items:center;flex:none;width:20px;height:20px;border-radius:50%;background:var(--teal);color:var(--teal-ink);font-size:12px;font-weight:800}
+.hero-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.hero-cta .btn{width:auto;margin:0;padding:11px 18px;font-size:15px}
+.hero-cta .outline{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.hero-cta .outline:hover{background:var(--wash);color:var(--teal);border-color:var(--teal)}
+table thead th{background:var(--teal);color:var(--teal-ink);font-size:14px;letter-spacing:.02em}
+table tbody tr:hover td{background:var(--wash)}
+table tbody td:first-child{font-weight:600}
+.card b{background:linear-gradient(135deg,var(--wash),var(--surface));border:1px solid var(--line);transition:background .2s,color .2s}
+.card:hover b{background:var(--teal);color:var(--teal-ink);border-color:var(--teal)}
+.pk.pop{border-color:var(--teal);box-shadow:0 12px 0 var(--wash)}
+.testi figure{transition:transform .2s,border-color .2s,box-shadow .2s}
+.testi figure:hover{transform:translateY(-4px);border-color:var(--teal);box-shadow:0 8px 0 var(--wash)}
+footer{padding:32px 0 36px}
+footer .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+@media (max-width:640px){footer .wrap{justify-content:center;text-align:center}}
+@media (prefers-reduced-motion:reduce){.testi figure{transition:none}.testi figure:hover{transform:none}}
