@@ -21,30 +21,17 @@
     Aktifkan JavaScript agar kalkulator, booking, dan pelacakan cucian berfungsi.
   </p>
 </noscript>
-<header class="site-header">
-  <div class="wrap header-inner">
+<div class="wrap">
+  <header>
     <a class="logo" href="#">Bilas Laundry</a>
     <nav><a href="#harga">Harga</a><a href="#cara">Cara kerja</a><a href="#keranjang">Keranjang</a><a href="#paket">Paket</a><a href="#booking">Booking</a><a href="#lacak">Lacak</a><a href="#faq">FAQ</a><a href="#kontak">Kontak</a><button id="tema" class="tema" type="button" title="Ganti tema terang atau gelap" aria-label="Ganti tema terang atau gelap" aria-pressed="false">🌙</button></nav>
-  </div>
-</header>
+  </header>
 
-<main>
-<div class="wrap">
   <div class="hero">
     <div class="bubbles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
     <div>
-      <span class="eyebrow">🧺 Laundry antar-jemput di Jakarta</span>
       <h1>Baju bersih, wangi, <span>sampai di pintu rumah.</span></h1>
       <p>Kami jemput cucian Anda, cuci dengan deterjen lembut, lalu antar kembali tepat waktu dan rapi. Hitung biayanya dulu, pesan lewat WhatsApp.</p>
-      <ul class="trust">
-        <li>Gratis antar-jemput mulai 5 kg</li>
-        <li>Cucian terpisah per pelanggan</li>
-        <li>Harga jelas sejak awal</li>
-      </ul>
-      <div class="hero-cta">
-        <a class="btn kecil" href="#harga">Lihat daftar harga</a>
-        <a class="btn kecil outline" href="#booking">Booking jemput</a>
-      </div>
     </div>
     <div class="calc" id="hitung">
       <h2>Hitung biaya cucian Anda</h2>
@@ -104,17 +91,15 @@
   <h2>Daftar harga</h2>
   <p class="sub">Harga sudah termasuk deterjen dan pewangi. Berat ditimbang ulang saat cucian dijemput.</p>
   <div class="scroll"><table>
-    <thead><tr><th>Layanan</th><th>Durasi</th><th>Harga</th></tr></thead>
-    <tbody>
-      <tr><td>Cuci kiloan</td><td>2 hari</td><td>Rp7.000/kg</td></tr>
-      <tr><td>Cuci + setrika</td><td>2 hari</td><td>Rp9.000/kg</td></tr>
-      <tr><td>Cuci + setrika ekspres</td><td>6 jam</td><td>Rp14.000/kg</td></tr>
-      <tr><td>Setrika saja</td><td>2 hari</td><td>Rp5.000/kg</td></tr>
-      <tr><td>Selimut / bedcover</td><td>3 hari</td><td>Rp25.000/pcs</td></tr>
-      <tr><td>Cuci sepatu</td><td>3 hari</td><td>Rp35.000/pasang</td></tr>
-      <tr><td>Karpet</td><td>4 hari</td><td>Rp15.000/m²</td></tr>
-      <tr><td>Antar-jemput</td><td>–</td><td>Gratis min. 5 kg, selain itu Rp5.000</td></tr>
-    </tbody>
+    <tr><th>Layanan</th><th>Durasi</th><th>Harga</th></tr>
+    <tr><td>Cuci kiloan</td><td>2 hari</td><td>Rp7.000/kg</td></tr>
+    <tr><td>Cuci + setrika</td><td>2 hari</td><td>Rp9.000/kg</td></tr>
+    <tr><td>Cuci + setrika ekspres</td><td>6 jam</td><td>Rp14.000/kg</td></tr>
+    <tr><td>Setrika saja</td><td>2 hari</td><td>Rp5.000/kg</td></tr>
+    <tr><td>Selimut / bedcover</td><td>3 hari</td><td>Rp25.000/pcs</td></tr>
+    <tr><td>Cuci sepatu</td><td>3 hari</td><td>Rp35.000/pasang</td></tr>
+    <tr><td>Karpet</td><td>4 hari</td><td>Rp15.000/m²</td></tr>
+    <tr><td>Antar-jemput</td><td>–</td><td>Gratis min. 5 kg, selain itu Rp5.000</td></tr>
   </table></div>
 </div></section>
 
@@ -186,7 +171,7 @@
     </div>
     <label for="bk-catatan">Catatan (opsional)</label>
     <input id="bk-catatan" type="text" placeholder="Contoh: ada selimut besar">
-    <button class="btn" type="submit">Kirim booking lewat WhatsApp</button>
+    <button class="btn" type="submit">Kirim booking sekarang</button>
     <p class="note" id="bk-status" role="status"></p>
   </form>
 </div></section>
@@ -279,9 +264,7 @@
   </div>
 </div></section>
 
-</main>
-
-<footer><div class="wrap"><span>© 2026 Bilas Laundry. Semua hak dilindungi.</span> <button id="bagikan" class="chip" type="button">Bagikan situs</button></div></footer>
+<footer><div class="wrap">© 2026 Bilas Laundry. Semua hak dilindungi. <button id="bagikan" class="chip" type="button" style="margin-left:12px">Bagikan situs</button></div></footer>
 
 <button id="atas" class="atas" type="button" title="Kembali ke atas" aria-label="Kembali ke atas" hidden>↑</button>
 
