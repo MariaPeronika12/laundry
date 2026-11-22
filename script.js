@@ -144,3 +144,167 @@
   },{threshold:.12});
   document.querySelectorAll("section .wrap").forEach(function(x){x.classList.add("muncul");io.observe(x)});
 })();
+
+/* Penanda buka/tutup di bagian kontak */
+(function(){
+  var el=document.querySelector("#kontak .sub");
+  if(!el)return;
+  var n=new Date(),h=n.getHours()+n.getMinutes()/60;
+  var buka=n.getDay()==0?(h>=9&&h<17):(h>=7&&h<20);
+  var b=document.createElement("strong");
+  b.textContent=buka?" ● Buka sekarang":" ● Sedang tutup";
+  b.style.color=buka?"var(--teal)":"#C2410C";
+  el.appendChild(b);
+})();
+
+/* Judul tab berubah saat ditinggal */
+(function(){
+  var asli=document.title;
+  document.addEventListener("visibilitychange",function(){
+    document.title=document.hidden?"Cucian menunggu \uD83E\uDDFA":asli;
+  });
+})();
+
+/* Keranjang multi-layanan, kode promo, dan paket langganan */
+(function(){
+  var KEY="bilas_keranjang",$=function(i){return document.getElementById(i)};
+  var PROMO={HEMAT10:{tipe:"persen",nilai:10,info:"Diskon 10%"},HEMAT5K:{tipe:"tetap",nilai:5000,info:"Potongan Rp5.000"}};
+  var st=(function(){try{return JSON.parse(localStorage.getItem(KEY))||{items:[],promo:""}}catch(e){return{items:[],promo:""}}})();
+  var rp=function(n){return "Rp"+Math.round(n).toLocaleString("id-ID")};
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+  function simpan(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+  function hitung(){
+    var sub=st.items.reduce(function(a,x){return a+x.sub},0),p=PROMO[st.promo],disk=0;
+    if(p)disk=p.tipe=="persen"?sub*p.nilai/100:Math.min(p.nilai,sub);
+    var ongkir=st.items.length?((sub-disk)>=50000?0:5000):0;
+    return{sub:sub,disk:disk,ongkir:ongkir,total:sub-disk+ongkir};
+  }
+  function render(){
+    var r=hitung();
+    var tl=document.querySelector('nav a[href="#keranjang"]');
+    if(tl)tl.textContent=st.items.length?"Keranjang ("+st.items.length+")":"Keranjang";
+    $("cart-list").innerHTML=st.items.length?st.items.map(function(x,i){
+      return'<div class="item"><div><b>'+esc(x.nama)+'</b><small>'+esc(x.jumlah)+' '+esc(x.unit)+' × '+rp(x.harga)+'</small></div><div><strong>'+rp(x.sub)+'</strong><button type="button" class="chip" data-hapus="'+i+'" aria-label="Hapus '+esc(x.nama)+'">Hapus</button></div></div>';
+    }).join(""):'<p class="kosong">Keranjang masih kosong. Pilih layanan di kalkulator lalu klik "Tambah ke keranjang".</p>';
+    $("c-sub").textContent=rp(r.sub);$("c-disk").textContent=r.disk?"-"+rp(r.disk):"Rp0";
+    $("c-ongkir").textContent=r.ongkir?rp(r.ongkir):(st.items.length?"Gratis":"Rp0");$("c-total").textContent=rp(r.total);
+    if(st.promo&&PROMO[st.promo])$("promo").value=st.promo;
+  }
+  function pesan(t){$("c-pesan").textContent=t}
+  $("tambah").addEventListener("click",function(){
+    var s=$("layanan"),o=s.options[s.selectedIndex],jml=Math.min(50,Math.max(0,parseFloat($("berat").value)||0));
+    if(jml<=0){pesan("Masukkan jumlah lebih dari 0 di kalkulator.");return}
+    if(st.items.length>=10){pesan("Maksimal 10 layanan per keranjang.");return}
+    var harga=+s.value;st.items.push({nama:o.text.split(" – ")[0],jumlah:jml,unit:o.getAttribute("data-unit")||"kg",harga:harga,sub:harga*jml});
+    simpan();render();pesan("Ditambahkan ke keranjang.");
+    $("keranjang").scrollIntoView({behavior:"smooth"});
+  });
+  $("cart-list").addEventListener("click",function(e){
+    var i=e.target.getAttribute&&e.target.getAttribute("data-hapus");
+    if(i!==null&&i!==undefined&&i!==false){st.items.splice(+i,1);simpan();render()}
+  });
+  $("pakai").addEventListener("click",function(){
+    var k=$("promo").value.trim().toUpperCase();
+    if(!k){st.promo="";simpan();render();pesan("Kode promo dihapus.");return}
+    if(PROMO[k]){st.promo=k;simpan();render();pesan("Kode "+k+" dipakai: "+PROMO[k].info+".")}
+    else pesan("Kode promo tidak dikenal.");
+  });
+  $("c-kosong").addEventListener("click",function(){if(!st.items.length)return;if(confirm("Kosongkan keranjang?")){st.items=[];st.promo="";$("promo").value="";simpan();render();pesan("Keranjang dikosongkan.")}});
+  function nomor(){return $("wa").href.split("wa.me/")[1].split("?")[0]}
+  $("c-wa").addEventListener("click",function(){
+    if(!st.items.length){pesan("Keranjang masih kosong.");return}
+    var r=hitung(),t="Halo Bilas Laundry, saya mau pesan:\n"+st.items.map(function(x){return"- "+x.nama+" "+x.jumlah+" "+x.unit+" = "+rp(x.sub)}).join("\n");
+    if(r.disk)t+="\nPromo "+st.promo+": -"+rp(r.disk);
+    t+="\nAntar-jemput: "+(r.ongkir?rp(r.ongkir):"gratis")+"\nTotal: "+rp(r.total)+"\nAlamat: ";
+    window.open("https://wa.me/"+nomor()+"?text="+encodeURIComponent(t),"_blank","noopener");
+  });
+  document.querySelectorAll("[data-paket]").forEach(function(b){
+    b.addEventListener("click",function(){
+      var t="Halo Bilas Laundry, saya mau ambil paket langganan "+b.getAttribute("data-paket")+".\nNama: \nAlamat: ";
+      window.open("https://wa.me/"+nomor()+"?text="+encodeURIComponent(t),"_blank","noopener");
+    });
+  });
+  render();
+})();
+
+/* Ulasan pelanggan dan pencarian FAQ */
+(function(){
+  var KEY="bilas_ulasan",$=function(i){return document.getElementById(i)};
+  function muat(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return[]}}
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+  function bintang(n){return"\u2605\u2605\u2605\u2605\u2605".slice(0,n)+"\u2606\u2606\u2606\u2606\u2606".slice(0,5-n)}
+  function render(){
+    var l=muat(),tot=15,cnt=3+l.length;
+    l.forEach(function(u){tot+=u.nilai});
+    var rata=tot/cnt;
+    $("u-rata").textContent=rata.toFixed(1).replace(".",",");
+    $("u-bintang").textContent=bintang(Math.round(rata));
+    $("u-jumlah").textContent="dari "+cnt+" ulasan";
+    $("u-daftar").innerHTML=l.map(function(u){
+      return'<figure><div class="stars" aria-label="'+u.nilai+' dari 5 bintang">'+bintang(u.nilai)+'</div><blockquote>'+esc(u.teks)+'</blockquote><figcaption><b>'+esc(u.nama)+'</b>Ulasan baru</figcaption></figure>';
+    }).join("");
+  }
+  $("fulasan").addEventListener("submit",function(e){
+    e.preventDefault();
+    var u={nama:$("u-nama").value.trim(),nilai:+$("u-nilai").value,teks:$("u-teks").value.trim()};
+    if(!u.nama||u.teks.length<10){$("u-pesan").textContent="Isi nama dan ulasan minimal 10 huruf.";return}
+    var l=muat();l.unshift(u);
+    try{localStorage.setItem(KEY,JSON.stringify(l.slice(0,6)))}catch(x){}
+    this.reset();$("u-pesan").textContent="Terima kasih atas ulasan Anda!";render();
+  });
+  render();
+
+  var c=$("faq-cari"),det=document.querySelectorAll(".faq details");
+  c.addEventListener("input",function(){
+    var q=c.value.trim().toLowerCase(),ada=0;
+    det.forEach(function(d){
+      var cocok=!q||d.textContent.toLowerCase().indexOf(q)>-1;
+      d.hidden=!cocok;if(cocok)ada++;
+    });
+    $("faq-kosong").hidden=ada>0;
+  });
+})();
+
+/* Rekomendasi paket berdasarkan kg per bulan */
+(function(){
+  var i=document.getElementById("kg-bulan"),o=document.getElementById("saran-hasil");
+  if(!i)return;
+  var KILO=9000,PAKET=[{n:"Hemat",kg:10,h:85000},{n:"Plus",kg:20,h:160000},{n:"Keluarga",kg:40,h:300000}];
+  var rp=function(n){return "Rp"+Math.round(n).toLocaleString("id-ID")};
+  function hitung(){
+    var k=Math.min(100,Math.max(0,parseFloat(i.value)||0));
+    if(k<=0){o.textContent="Masukkan jumlah kg per bulan.";return}
+    var kiloan=k*KILO,best={n:"Kiloan reguler",total:kiloan};
+    PAKET.forEach(function(p){
+      var total=p.h+Math.max(0,k-p.kg)*KILO;
+      if(total<best.total)best={n:"Paket "+p.n,total:total};
+    });
+    var hemat=kiloan-best.total;
+    o.textContent=hemat>0
+      ?"Rekomendasi: "+best.n+" ("+rp(best.total)+"). Hemat "+rp(hemat)+" dibanding kiloan ("+rp(kiloan)+")."
+      :"Untuk "+k+" kg per bulan, kiloan reguler paling hemat ("+rp(kiloan)+").";
+  }
+  i.addEventListener("input",hitung);hitung();
+})();
+
+/* Tombol bagikan situs */
+(function(){
+  var b=document.getElementById("bagikan");
+  if(!b)return;
+  b.addEventListener("click",function(){
+    var d={title:document.title,text:"Cek Bilas Laundry: cuci, setrika, dan antar-jemput.",url:location.href};
+    if(navigator.share){navigator.share(d).catch(function(){})}
+    else if(navigator.clipboard){navigator.clipboard.writeText(location.href).then(function(){b.textContent="Tautan tersalin \u2713"},function(){b.textContent="Gagal menyalin"})}
+    else{b.textContent="Tidak didukung"}
+  });
+})();
+
+/* Tekan "/" untuk langsung mencari di FAQ */
+(function(){
+  var c=document.getElementById("faq-cari");
+  if(!c)return;
+  document.addEventListener("keydown",function(e){
+    var t=e.target.tagName;
+    if(e.key=="/"&&t!="INPUT"&&t!="TEXTAREA"&&t!="SELECT"){e.preventDefault();c.focus();c.scrollIntoView({behavior:"smooth",block:"center"})}
+  });
+})();
