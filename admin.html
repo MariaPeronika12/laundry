@@ -6,7 +6,6 @@
 <title>Admin – Bilas Laundry</title>
 <meta name="robots" content="noindex">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧺</text></svg>">
-<link rel="manifest" href="manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <style>
@@ -74,37 +73,13 @@ body .btn:hover{background:var(--pink-deep);border-color:var(--pink-deep);color:
     <button class="btn" id="csv" type="button" style="display:inline-block;width:auto">Unduh CSV</button>
   </section>
 </div>
-<script src="script.js"></script>
 <script>
 (function(){
   var KB="bilas_booking",KT="bilas_transaksi",$=function(i){return document.getElementById(i)};
   function muat(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch(e){return[]}}
   function simpan(k,l){try{localStorage.setItem(k,JSON.stringify(l))}catch(e){}}
-  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&","<":"<",">":">",'"':""","'":"'"}[c]})}
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
   function rp(n){return "Rp"+Math.round(n).toLocaleString("id-ID")}
-  
-  // Loyalty integration - add points when transaction marked as paid
-  function addLoyaltyPointsForTransaction(amount) {
-    try {
-      var data = JSON.parse(localStorage.getItem('bilas_loyalty') || '{}');
-      var pointsEarned = Math.floor(amount / 1000) * 10; // 10 points per 1000
-      data.points = (data.points || 0) + pointsEarned;
-      data.history = data.history || [];
-      data.history.unshift({
-        date: Date.now(),
-        type: 'earn',
-        amount: amount,
-        points: pointsEarned,
-        balance: data.points,
-        source: 'admin_transaction'
-      });
-      localStorage.setItem('bilas_loyalty', JSON.stringify(data));
-      return pointsEarned;
-    } catch (e) {
-      return 0;
-    }
-  }
-  
   function render(){
     var bk=muat(KB),tr=muat(KT),lunas=0,belum=0;
     tr.forEach(function(t){if(t.lunas)lunas+=t.total;else belum+=t.total});
@@ -121,18 +96,7 @@ body .btn:hover{background:var(--pink-deep);border-color:var(--pink-deep);color:
     var i=+e.target.getAttribute("data-i"),bk=muat(KB),tr=muat(KT);
     if(a=="jadi"){$("t-nama").value=bk[i].nama;$("t-layanan").value="Booking "+bk[i].kode;$("t-total").focus()}
     if(a=="hapus-bk"&&confirm("Hapus booking ini?")){bk.splice(i,1);simpan(KB,bk)}
-    if(a=="ubah"){
-      var wasLunas = tr[i].lunas;
-      tr[i].lunas=!tr[i].lunas;
-      // Add loyalty points when marked as paid (lunas)
-      if (tr[i].lunas && !wasLunas) {
-        var pts = addLoyaltyPointsForTransaction(tr[i].total);
-        if (pts > 0) {
-          $("t-pesan").textContent = "Transaksi diubah. Poin loyalitas ditambah: +" + pts;
-        }
-      }
-      simpan(KT,tr);
-    }
+    if(a=="ubah"){tr[i].lunas=!tr[i].lunas;simpan(KT,tr)}
     if(a=="hapus-trx"&&confirm("Hapus transaksi ini?")){tr.splice(i,1);simpan(KT,tr)}
     render();
   });
@@ -141,18 +105,7 @@ body .btn:hover{background:var(--pink-deep);border-color:var(--pink-deep);color:
     var t={waktu:Date.now(),nama:$("t-nama").value.trim(),layanan:$("t-layanan").value.trim(),total:Math.max(0,+$("t-total").value||0),metode:$("t-metode").value,lunas:$("t-status").value=="1"};
     if(!t.nama||!t.layanan||t.total<=0){$("t-pesan").textContent="Isi nama, layanan, dan total lebih dari 0.";return}
     var tr=muat(KT);tr.unshift(t);simpan(KT,tr);
-    // Add loyalty points if transaction is marked as paid
-    if (t.lunas) {
-      var pts = addLoyaltyPointsForTransaction(t.total);
-      if (pts > 0) {
-        $("t-pesan").textContent = "Transaksi tersimpan. Poin loyalitas ditambah: +" + pts;
-      } else {
-        $("t-pesan").textContent = "Transaksi tersimpan.";
-      }
-    } else {
-      $("t-pesan").textContent = "Transaksi tersimpan (belum lunas).";
-    }
-    this.reset();render();
+    $("t-pesan").textContent="Transaksi tersimpan.";this.reset();render();
   });
   $("csv").addEventListener("click",function(){
     var q=function(s){return '"'+String(s).replace(/"/g,'""')+'"'};
