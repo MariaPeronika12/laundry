@@ -9,33 +9,93 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧺</text></svg>">
 <meta name="theme-color" content="#D6336C">
 <meta name="color-scheme" content="light dark">
+<link rel="manifest" href="manifest.json">
 <meta property="og:title" content="Bilas Laundry">
 <meta property="og:description" content="Cuci, setrika, antar-jemput. Hitung biaya dan pesan lewat WhatsApp.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 630'><rect fill='%23FFF5F8' width='1200' height='630'/><text x='600' y='315' font-size='120' text-anchor='middle' dominant-baseline='middle'>🧺</text><text x='600' y='420' font-size='48' text-anchor='middle' fill='%233B1230' font-family='system-ui'>Bilas Laundry</text></svg>">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bilas Laundry">
+<meta name="twitter:description" content="Cuci, setrika, antar-jemput. Hitung biaya dan pesan lewat WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<!-- JSON-LD Structured Data for SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Bilas Laundry",
+  "description": "Layanan laundry kiloan, setrika, dan antar-jemput di Jakarta",
+  "url": "https://mariaperonika12.github.io/laundry/",
+  "telephone": "+62-812-3456-7890",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Jl. Contoh Raya No. 12",
+    "addressLocality": "Jakarta",
+    "addressCountry": "ID"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "07:00",
+      "closes": "20:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Sunday",
+      "opens": "09:00",
+      "closes": "17:00"
+    }
+  ],
+  "priceRange": "Rp7.000 - Rp35.000",
+  "paymentAccepted": "Cash, Bank Transfer, Digital Wallet",
+  "currenciesAccepted": "IDR",
+  "areaServed": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": -6.2088,
+      "longitude": 106.8456
+    },
+    "geoRadius": "5000"
+  }
+}
+</script>
 </head>
 <body>
 <noscript>
-  <p style="margin:0;padding:12px 16px;background:#FFC93C;color:#3B1230;text-align:center;font-weight:600">
+  <p style="margin:0;padding:12px 16px;background:#FFC93C;color:#3B1230;text-align:center;font-weight:600" data-i18n="js_required">
     Aktifkan JavaScript agar kalkulator, booking, dan pelacakan cucian berfungsi.
   </p>
 </noscript>
 <div class="wrap">
   <header>
     <a class="logo" href="#">Bilas Laundry</a>
-    <nav><a href="#harga">Harga</a><a href="#cara">Cara kerja</a><a href="#keranjang">Keranjang</a><a href="#paket">Paket</a><a href="#booking">Booking</a><a href="#lacak">Lacak</a><a href="#faq">FAQ</a><a href="#kontak">Kontak</a><button id="tema" class="tema" type="button" title="Ganti tema terang atau gelap" aria-label="Ganti tema terang atau gelap" aria-pressed="false">🌙</button></nav>
+    <nav>
+      <a href="#harga" data-i18n="nav_harga">Harga</a>
+      <a href="#cara" data-i18n="nav_cara">Cara kerja</a>
+      <a href="#keranjang" data-i18n="nav_keranjang">Keranjang</a>
+      <a href="#paket" data-i18n="nav_paket">Paket</a>
+      <a href="#booking" data-i18n="nav_booking">Booking</a>
+      <a href="#lacak" data-i18n="nav_lacak">Lacak</a>
+      <a href="#faq" data-i18n="nav_faq">FAQ</a>
+      <a href="#kontak" data-i18n="nav_kontak">Kontak</a>
+      <button id="tema" class="tema" type="button" title="Ganti tema terang atau gelap" aria-label="Ganti tema terang atau gelap" aria-pressed="false">🌙</button>
+    </nav>
   </header>
 
   <div class="hero">
     <div class="bubbles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
     <div>
-      <h1>Baju bersih, wangi, <span>sampai di pintu rumah.</span></h1>
-      <p>Kami jemput cucian Anda, cuci dengan deterjen lembut, lalu antar kembali tepat waktu dan rapi. Hitung biayanya dulu, pesan lewat WhatsApp.</p>
+      <h1 data-i18n="hero_title">Baju bersih, wangi, <span>sampai di pintu rumah.</span></h1>
+      <p data-i18n="hero_desc">Kami jemput cucian Anda, cuci dengan deterjen lembut, lalu antar kembali tepat waktu dan rapi. Hitung biayanya dulu, pesan lewat WhatsApp.</p>
     </div>
     <div class="calc" id="hitung">
-      <h2>Hitung biaya cucian Anda</h2>
-      <label for="layanan">Layanan</label>
+      <h2 data-i18n="hitung_title">Hitung biaya cucian Anda</h2>
+      <label for="layanan" data-i18n="layanan_label">Layanan</label>
       <select id="layanan">
         <option value="7000" data-jam="48">Cuci kiloan reguler (2 hari) – Rp7.000/kg</option>
         <option value="9000" data-jam="48" selected>Cuci + setrika reguler (2 hari) – Rp9.000/kg</option>
@@ -44,52 +104,52 @@
         <option value="35000" data-jam="72" data-unit="pasang">Cuci sepatu (3 hari) – Rp35.000/pasang</option>
         <option value="15000" data-jam="96" data-unit="m²">Karpet (4 hari) – Rp15.000/m²</option>
       </select>
-      <label for="berat" id="lblberat">Perkiraan berat (kg)</label>
+      <label for="berat" id="lblberat" data-i18n="berat_label">Perkiraan berat (kg)</label>
       <input id="berat" type="number" min="1" max="50" step="0.5" value="4" inputmode="decimal">
-      <label class="check"><input id="antar" type="checkbox" checked> Antar-jemput ke rumah</label>
-      <div class="total"><span>Perkiraan total</span><strong id="total">Rp0</strong></div>
+      <label class="check"><input id="antar" type="checkbox" checked><span data-i18n="antar_label"> Antar-jemput ke rumah</span></label>
+      <div class="total"><span data-i18n="total_label">Perkiraan total</span><strong id="total">Rp0</strong></div>
       <p class="note" id="ongkir"></p>
       <p class="note estimasi" id="estimasi"></p>
-      <button class="btn" id="tambah" type="button">Tambah ke keranjang</button>
-      <button class="btn" id="simpan" type="button">Simpan pesanan &amp; dapatkan kode</button>
+      <button class="btn" id="tambah" type="button" data-i18n="tambah_btn">Tambah ke keranjang</button>
+      <button class="btn" id="simpan" type="button" data-i18n="simpan_btn">Simpan pesanan & dapatkan kode</button>
       <p class="note" id="kode" role="status"></p>
-      <a class="btn" id="wa" href="#" target="_blank" rel="noopener">Pesan sekarang lewat WhatsApp</a>
+      <a class="btn" id="wa" href="#" target="_blank" rel="noopener" data-i18n="wa_btn">Pesan sekarang lewat WhatsApp</a>
     </div>
   </div>
 </div>
 
 <section id="keranjang"><div class="wrap">
-  <h2>Keranjang pesanan</h2>
-  <p class="sub">Gabungkan beberapa layanan dalam satu pesanan, lalu pakai kode promo (coba HEMAT10 atau HEMAT5K).</p>
+  <h2 data-i18n="keranjang_title">Keranjang pesanan</h2>
+  <p class="sub" data-i18n="keranjang_sub">Gabungkan beberapa layanan dalam satu pesanan, lalu pakai kode promo (coba HEMAT10 atau HEMAT5K).</p>
   <div class="cart">
     <div id="cart-list"></div>
-    <div class="promo"><input id="promo" placeholder="Kode promo" aria-label="Kode promo" maxlength="12"><button class="btn" id="pakai" type="button">Pakai</button></div>
+    <div class="promo"><input id="promo" placeholder="Kode promo" aria-label="Kode promo" maxlength="12" data-i18n="promo_placeholder"><button class="btn" id="pakai" type="button" data-i18n="pakai_btn">Pakai</button></div>
     <p class="note" id="c-pesan" role="status"></p>
     <dl class="rincian">
-      <div><dt>Subtotal</dt><dd id="c-sub">Rp0</dd></div>
-      <div><dt>Diskon</dt><dd id="c-disk">Rp0</dd></div>
-      <div><dt>Antar-jemput</dt><dd id="c-ongkir">Rp0</dd></div>
-      <div class="tot"><dt>Total</dt><dd id="c-total">Rp0</dd></div>
+      <div><dt data-i18n="c_sub">Subtotal</dt><dd id="c-sub">Rp0</dd></div>
+      <div><dt data-i18n="c_disk">Diskon</dt><dd id="c-disk">Rp0</dd></div>
+      <div><dt data-i18n="c_ongkir">Antar-jemput</dt><dd id="c-ongkir">Rp0</dd></div>
+      <div class="tot"><dt data-i18n="c_total">Total</dt><dd id="c-total">Rp0</dd></div>
     </dl>
-    <button class="btn" id="c-wa" type="button">Kirim keranjang lewat WhatsApp</button>
-    <button class="chip" id="c-kosong" type="button">Kosongkan keranjang</button>
+    <button class="btn" id="c-wa" type="button" data-i18n="c_wa_btn">Kirim keranjang lewat WhatsApp</button>
+    <button class="chip" id="c-kosong" type="button" data-i18n="c_kosong_btn">Kosongkan keranjang</button>
   </div>
 </div></section>
 
 <section id="layanan"><div class="wrap">
-  <h2>Layanan kami</h2>
-  <p class="sub">Pilih yang sesuai kebutuhan, semuanya dijemput dan diantar.</p>
+  <h2 data-i18n="layanan_title">Layanan kami</h2>
+  <p class="sub" data-i18n="layanan_sub">Pilih yang sesuai kebutuhan, semuanya dijemput dan diantar.</p>
   <div class="cards">
     <article class="card"><b>🧺</b><h3>Cuci Kiloan</h3><p>Cuci bersih dan wangi, siap dalam 2 hari.</p><span>Rp7.000/kg</span></article>
     <article class="card"><b>👔</b><h3>Cuci + Setrika</h3><p>Rapi dan terlipat, tinggal masuk lemari.</p><span>Rp9.000/kg</span></article>
     <article class="card"><b>⚡</b><h3>Ekspres 6 Jam</h3><p>Butuh cepat? Pagi dijemput, sore sudah balik.</p><span>Rp14.000/kg</span></article>
-    <article class="card"><b>🛏️</b><h3>Selimut &amp; Bedcover</h3><p>Dicuci khusus agar tetap lembut dan tebal.</p><span>Rp25.000/pcs</span></article>
+    <article class="card"><b>🛏️</b><h3>Selimut & Bedcover</h3><p>Dicuci khusus agar tetap lembut dan tebal.</p><span>Rp25.000/pcs</span></article>
   </div>
 </div></section>
 
 <section id="harga" class="alt"><div class="wrap">
-  <h2>Daftar harga</h2>
-  <p class="sub">Harga sudah termasuk deterjen dan pewangi. Berat ditimbang ulang saat cucian dijemput.</p>
+  <h2 data-i18n="harga_title">Daftar harga</h2>
+  <p class="sub" data-i18n="harga_sub">Harga sudah termasuk deterjen dan pewangi. Berat ditimbang ulang saat cucian dijemput.</p>
   <div class="scroll"><table>
     <tr><th>Layanan</th><th>Durasi</th><th>Harga</th></tr>
     <tr><td>Cuci kiloan</td><td>2 hari</td><td>Rp7.000/kg</td></tr>
@@ -104,92 +164,92 @@
 </div></section>
 
 <section id="paket"><div class="wrap">
-  <h2>Paket langganan</h2>
-  <p class="sub">Lebih hemat untuk cucian rutin. Berlaku 30 hari, sudah termasuk antar-jemput.</p>
+  <h2 data-i18n="paket_title">Paket langganan</h2>
+  <p class="sub" data-i18n="paket_sub">Lebih hemat untuk cucian rutin. Berlaku 30 hari, sudah termasuk antar-jemput.</p>
   <div class="paket">
-    <article class="pk"><h3>Hemat</h3><p>10 kg cuci + setrika</p><strong>Rp85.000</strong><small>Rp8.500 per kg</small><button class="btn" type="button" data-paket="Hemat (10 kg) Rp85.000">Ambil paket</button></article>
-    <article class="pk pop"><em>Populer</em><h3>Plus</h3><p>20 kg cuci + setrika</p><strong>Rp160.000</strong><small>Rp8.000 per kg</small><button class="btn" type="button" data-paket="Plus (20 kg) Rp160.000">Ambil paket</button></article>
-    <article class="pk"><h3>Keluarga</h3><p>40 kg cuci + setrika</p><strong>Rp300.000</strong><small>Rp7.500 per kg</small><button class="btn" type="button" data-paket="Keluarga (40 kg) Rp300.000">Ambil paket</button></article>
+    <article class="pk"><h3 data-i18n="paket_hemat">Hemat</h3><p data-i18n="paket_hemat_desc">10 kg cuci + setrika</p><strong>Rp85.000</strong><small>Rp8.500 per kg</small><button class="btn" type="button" data-paket="Hemat (10 kg) Rp85.000" data-i18n="ambil_paket">Ambil paket</button></article>
+    <article class="pk pop"><em>Populer</em><h3 data-i18n="paket_plus">Plus</h3><p data-i18n="paket_plus_desc">20 kg cuci + setrika</p><strong>Rp160.000</strong><small>Rp8.000 per kg</small><button class="btn" type="button" data-paket="Plus (20 kg) Rp160.000" data-i18n="ambil_paket">Ambil paket</button></article>
+    <article class="pk"><h3 data-i18n="paket_keluarga">Keluarga</h3><p data-i18n="paket_keluarga_desc">40 kg cuci + setrika</p><strong>Rp300.000</strong><small>Rp7.500 per kg</small><button class="btn" type="button" data-paket="Keluarga (40 kg) Rp300.000" data-i18n="ambil_paket">Ambil paket</button></article>
   </div>
   <div class="saran">
-    <label for="kg-bulan">Berapa kg cucian Anda per bulan?</label>
+    <label for="kg-bulan" data-i18n="saran_label">Berapa kg cucian Anda per bulan?</label>
     <input id="kg-bulan" type="number" min="1" max="100" step="1" value="12" inputmode="numeric">
     <p id="saran-hasil" class="note" role="status"></p>
   </div>
 </div></section>
 
 <section id="cara"><div class="wrap">
-  <h2>Cara kerjanya</h2>
-  <p class="sub">Empat langkah, tanpa perlu keluar rumah.</p>
+  <h2 data-i18n="cara_title">Cara kerjanya</h2>
+  <p class="sub" data-i18n="cara_sub">Empat langkah, tanpa perlu keluar rumah.</p>
   <ol>
-    <li><h3>Pesan</h3><p>Isi kalkulator di atas, lalu kirim lewat WhatsApp.</p></li>
-    <li><h3>Jemput</h3><p>Kurir datang ke alamat Anda dan menimbang cucian.</p></li>
-    <li><h3>Cuci</h3><p>Pakaian dipisah per warna, dicuci, dikeringkan, dan disetrika.</p></li>
-    <li><h3>Antar</h3><p>Cucian wangi dan terlipat rapi sampai di rumah.</p></li>
+    <li><h3 data-i18n="cara_1_title">Pesan</h3><p data-i18n="cara_1_desc">Isi kalkulator di atas, lalu kirim lewat WhatsApp.</p></li>
+    <li><h3 data-i18n="cara_2_title">Jemput</h3><p data-i18n="cara_2_desc">Kurir datang ke alamat Anda dan menimbang cucian.</p></li>
+    <li><h3 data-i18n="cara_3_title">Cuci</h3><p data-i18n="cara_3_desc">Pakaian dipisah per warna, dicuci, dikeringkan, dan disetrika.</p></li>
+    <li><h3 data-i18n="cara_4_title">Antar</h3><p data-i18n="cara_4_desc">Cucian wangi dan terlipat rapi sampai di rumah.</p></li>
   </ol>
 </div></section>
 
 <section id="tentang"><div class="wrap tentang">
   <div>
-    <h2>Tentang kami</h2>
-    <p class="sub">Bilas Laundry berawal dari satu mesin cuci dan keinginan sederhana: pakaian pelanggan bersih, wangi, dan sampai tepat waktu. Kami memisahkan cucian per warna, memakai deterjen yang lembut di kulit, dan selalu memberi kabar lewat WhatsApp.</p>
+    <h2 data-i18n="tentang_title">Tentang kami</h2>
+    <p class="sub" data-i18n="tentang_desc">Bilas Laundry berawal dari satu mesin cuci dan keinginan sederhana: pakaian pelanggan bersih, wangi, dan sampai tepat waktu. Kami memisahkan cucian per warna, memakai deterjen yang lembut di kulit, dan selalu memberi kabar lewat WhatsApp.</p>
   </div>
   <ul class="angka">
-    <li><b>1.000+</b><span>cucian selesai</span></li>
-    <li><b>6 jam</b><span>layanan ekspres</span></li>
-    <li><b>5 km</b><span>radius antar-jemput</span></li>
+    <li><b>1.000+</b><span data-i18n="stat_1_label">cucian selesai</span></li>
+    <li><b>6 jam</b><span data-i18n="stat_2_label">layanan ekspres</span></li>
+    <li><b>5 km</b><span data-i18n="stat_3_label">radius antar-jemput</span></li>
   </ul>
 </div></section>
 
 <section id="galeri" class="alt"><div class="wrap">
-  <h2>Sebelum &amp; sesudah</h2>
-  <p class="sub">Geser untuk melihat perbedaan hasil cucian kami.</p>
+  <h2 data-i18n="galeri_title">Sebelum & sesudah</h2>
+  <p class="sub" data-i18n="galeri_sub">Geser untuk melihat perbedaan hasil cucian kami.</p>
   <div class="ba">
-    <div class="ba-pane ba-sebelum"><span>Sebelum</span></div>
-    <div class="ba-pane ba-sesudah" id="ba-sesudah"><span>Sesudah</span></div>
+    <div class="ba-pane ba-sebelum"><span data-i18n="sebelum">Sebelum</span></div>
+    <div class="ba-pane ba-sesudah" id="ba-sesudah"><span data-i18n="sesudah">Sesudah</span></div>
     <input type="range" min="0" max="100" value="50" id="ba-range" aria-label="Geser perbandingan sebelum dan sesudah">
     <div class="ba-garis" id="ba-garis"></div>
   </div>
 </div></section>
 
 <section id="booking"><div class="wrap">
-  <h2>Booking jemput cucian</h2>
-  <p class="sub">Isi data di bawah. Kami jadwalkan penjemputan lalu konfirmasi lewat WhatsApp.</p>
+  <h2 data-i18n="booking_title">Booking jemput cucian</h2>
+  <p class="sub" data-i18n="booking_sub">Isi data di bawah. Kami jadwalkan penjemputan lalu konfirmasi lewat WhatsApp.</p>
   <form class="booking" id="formbooking" novalidate>
-    <label for="bk-nama">Nama</label>
-    <input id="bk-nama" type="text" autocomplete="name" placeholder="Nama lengkap">
-    <label for="bk-hp">Nomor HP</label>
-    <input id="bk-hp" type="tel" autocomplete="tel" placeholder="0812-xxxx-xxxx">
-    <label for="bk-alamat">Alamat jemput</label>
-    <textarea id="bk-alamat" autocomplete="street-address" placeholder="Jalan, nomor, patokan"></textarea>
+    <label for="bk-nama" data-i18n="bk_nama">Nama</label>
+    <input id="bk-nama" type="text" autocomplete="name" placeholder="Nama lengkap" data-i18n="bk_nama_placeholder">
+    <label for="bk-hp" data-i18n="bk_hp">Nomor HP</label>
+    <input id="bk-hp" type="tel" autocomplete="tel" placeholder="0812-xxxx-xxxx" data-i18n="bk_hp_placeholder">
+    <label for="bk-alamat" data-i18n="bk_alamat">Alamat jemput</label>
+    <textarea id="bk-alamat" autocomplete="street-address" placeholder="Jalan, nomor, patokan" data-i18n="bk_alamat_placeholder"></textarea>
     <div class="dua">
-      <div><label for="bk-tgl">Tanggal jemput</label><input id="bk-tgl" type="date"></div>
-      <div><label for="bk-jam">Jam jemput</label>
+      <div><label for="bk-tgl" data-i18n="bk_tgl">Tanggal jemput</label><input id="bk-tgl" type="date"></div>
+      <div><label for="bk-jam" data-i18n="bk_jam">Jam jemput</label>
         <select id="bk-jam">
           <option>08.00–10.00</option><option>10.00–12.00</option><option>13.00–15.00</option><option>15.00–17.00</option>
         </select></div>
     </div>
-    <label for="bk-catatan">Catatan (opsional)</label>
-    <input id="bk-catatan" type="text" placeholder="Contoh: ada selimut besar">
-    <button class="btn" type="submit">Kirim booking sekarang</button>
+    <label for="bk-catatan" data-i18n="bk_catatan">Catatan (opsional)</label>
+    <input id="bk-catatan" type="text" placeholder="Contoh: ada selimut besar" data-i18n="bk_catatan_placeholder">
+    <button class="btn" type="submit" data-i18n="bk_submit">Kirim booking sekarang</button>
     <p class="note" id="bk-status" role="status"></p>
   </form>
 </div></section>
 
 <section id="lacak"><div class="wrap">
-  <h2>Lacak cucian</h2>
-  <p class="sub">Masukkan kode pesanan Anda. Untuk demo, status berpindah otomatis setiap 20 detik.</p>
+  <h2 data-i18n="lacak_title">Lacak cucian</h2>
+  <p class="sub" data-i18n="lacak_sub">Masukkan kode pesanan Anda. Untuk demo, status berpindah otomatis setiap 20 detik.</p>
   <div class="lacak">
-    <div class="cari"><input id="kodeinput" placeholder="Contoh: BL-1234" aria-label="Kode pesanan" maxlength="8"><button class="btn" id="cari" type="button">Cek status</button></div>
+    <div class="cari"><input id="kodeinput" placeholder="Contoh: BL-1234" aria-label="Kode pesanan" maxlength="8" data-i18n="kode_placeholder"><button class="btn" id="cari" type="button" data-i18n="cari_btn">Cek status</button></div>
     <div id="hasil" aria-live="polite"></div>
-    <h3>Pesanan terakhir</h3>
+    <h3 data-i18n="riwayat_title">Pesanan terakhir</h3>
     <div id="riwayat"></div>
   </div>
 </div></section>
 
 <section id="testimoni" class="alt"><div class="wrap">
-  <h2>Kata pelanggan</h2>
-  <p class="sub">Cerita singkat dari mereka yang sudah mencoba.</p>
+  <h2 data-i18n="testi_title">Kata pelanggan</h2>
+  <p class="sub" data-i18n="testi_sub">Cerita singkat dari mereka yang sudah mencoba.</p>
   <div class="testi">
     <figure><div class="stars" aria-label="5 dari 5 bintang">★★★★★</div><blockquote>Dijemput pagi, sore sudah wangi dan rapi. Sangat membantu waktu sibuk kuliah.</blockquote><figcaption><b>Sari</b>Mahasiswi</figcaption></figure>
     <figure><div class="stars" aria-label="5 dari 5 bintang">★★★★★</div><blockquote>Layanan ekspres benar-benar 6 jam. Seragam kerja saya selalu siap tepat waktu.</blockquote><figcaption><b>Budi</b>Karyawan</figcaption></figure>
@@ -198,23 +258,23 @@
   <div class="rata"><strong id="u-rata">5,0</strong><div><span id="u-bintang" class="stars" aria-hidden="true">★★★★★</span><small id="u-jumlah">dari 3 ulasan</small></div></div>
   <div id="u-daftar" class="testi baru"></div>
   <form id="fulasan" class="booking ulas" novalidate>
-    <h3>Tulis ulasan Anda</h3>
-    <label for="u-nama">Nama</label>
-    <input id="u-nama" type="text" maxlength="30" placeholder="Nama Anda">
-    <label for="u-nilai">Nilai</label>
+    <h3 data-i18n="ulasan_title">Tulis ulasan Anda</h3>
+    <label for="u-nama" data-i18n="u_nama">Nama</label>
+    <input id="u-nama" type="text" maxlength="30" placeholder="Nama Anda" data-i18n="u_nama_placeholder">
+    <label for="u-nilai" data-i18n="u_nilai">Nilai</label>
     <select id="u-nilai"><option value="5">★★★★★ (5)</option><option value="4">★★★★☆ (4)</option><option value="3">★★★☆☆ (3)</option><option value="2">★★☆☆☆ (2)</option><option value="1">★☆☆☆☆ (1)</option></select>
-    <label for="u-teks">Ulasan</label>
-    <textarea id="u-teks" maxlength="200" placeholder="Ceritakan pengalaman Anda (minimal 10 huruf)"></textarea>
-    <button class="btn" type="submit">Kirim ulasan</button>
+    <label for="u-teks" data-i18n="u_teks">Ulasan</label>
+    <textarea id="u-teks" maxlength="200" placeholder="Ceritakan pengalaman Anda (minimal 10 huruf)" data-i18n="u_teks_placeholder"></textarea>
+    <button class="btn" type="submit" data-i18n="u_submit">Kirim ulasan</button>
     <p class="note" id="u-pesan" role="status"></p>
   </form>
 </div></section>
 
 <section id="faq"><div class="wrap">
-  <h2>Tanya jawab</h2>
-  <p class="sub">Jawaban singkat untuk hal yang paling sering ditanyakan.</p>
-  <input id="faq-cari" class="cari-faq" type="search" placeholder="Cari pertanyaan..." aria-label="Cari pertanyaan">
-  <p id="faq-kosong" class="kosong" hidden>Tidak ada pertanyaan yang cocok.</p>
+  <h2 data-i18n="faq_title">Tanya jawab</h2>
+  <p class="sub" data-i18n="faq_sub">Jawaban singkat untuk hal yang paling sering ditanyakan.</p>
+  <input id="faq-cari" class="cari-faq" type="search" placeholder="Cari pertanyaan..." aria-label="Cari pertanyaan" data-i18n="faq_search">
+  <p id="faq-kosong" class="kosong" hidden data-i18n="faq_empty">Tidak ada pertanyaan yang cocok.</p>
   <div class="faq">
     <details>
       <summary>Berapa lama cucian selesai?</summary>
@@ -253,20 +313,20 @@
 
 <section id="kontak" class="alt"><div class="wrap contact">
   <div>
-    <h2>Kontak &amp; jam buka</h2>
-    <p class="sub">Senin–Sabtu 07.00–20.00, Minggu 09.00–17.00.</p>
-    <a class="btn" href="https://wa.me/6281234567890" target="_blank" rel="noopener" style="display:inline-block">Chat WhatsApp</a>
+    <h2 data-i18n="kontak_title">Kontak & jam buka</h2>
+    <p class="sub" data-i18n="kontak_sub">Senin–Sabtu 07.00–20.00, Minggu 09.00–17.00.</p>
+    <a class="btn" href="https://wa.me/6281234567890" target="_blank" rel="noopener" style="display:inline-block" data-i18n="wa_chat">Chat WhatsApp</a>
   </div>
   <div>
-    <p><strong>Alamat</strong><br>Jl. Contoh Raya No. 12, Jakarta<br><a href="https://www.google.com/maps/search/?api=1&query=Jl.+Contoh+Raya+No.+12,+Jakarta" target="_blank" rel="noopener" style="color:var(--teal);font-weight:600">Lihat di Google Maps</a></p>
-    <p><strong>WhatsApp</strong><br>0812-3456-7890</p>
-    <p><strong>Area layanan</strong><br>Radius 5 km dari toko.</p>
+    <p><strong data-i18n="alamat_label">Alamat</strong><br>Jl. Contoh Raya No. 12, Jakarta<br><a href="https://www.google.com/maps/search/?api=1&query=Jl.+Contoh+Raya+No.+12,+Jakarta" target="_blank" rel="noopener" style="color:var(--teal);font-weight:600" data-i18n="maps_link">Lihat di Google Maps</a></p>
+    <p><strong data-i18n="wa_label">WhatsApp</strong><br>0812-3456-7890</p>
+    <p><strong data-i18n="area_label">Area layanan</strong><br><span data-i18n="area_desc">Radius 5 km dari toko.</span></p>
   </div>
 </div></section>
 
-<footer><div class="wrap">© 2026 Bilas Laundry. Semua hak dilindungi. <button id="bagikan" class="chip" type="button" style="margin-left:12px">Bagikan situs</button></div></footer>
+<footer><div class="wrap">© 2026 Bilas Laundry. Semua hak dilindungi. <button id="bagikan" class="chip" type="button" style="margin-left:12px" data-i18n="share_btn">Bagikan situs</button></div></footer>
 
-<button id="atas" class="atas" type="button" title="Kembali ke atas" aria-label="Kembali ke atas" hidden>↑</button>
+<button id="atas" class="atas" type="button" title="Kembali ke atas" aria-label="Kembali ke atas" hidden data-i18n="back_top">↑</button>
 
 <a class="wa-float" href="https://wa.me/6281234567890" target="_blank" rel="noopener" aria-label="Chat WhatsApp"><span>💬</span> Chat</a>
 

@@ -1,0 +1,13 @@
+# Bilas Laundry - robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://mariaperonika12.github.io/laundry/sitemap.xml
+
+# Disallow admin and private pages
+Disallow: /admin.html
+Disallow: /404.html
+
+# Crawl-delay for polite crawling
+Crawl-delay: 10

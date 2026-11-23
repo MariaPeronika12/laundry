@@ -27,6 +27,15 @@ Website sederhana untuk usaha laundry: hitung biaya, keranjang pesanan, booking 
 - Judul tab berubah saat ditinggal, halaman `404.html` kustom, dan pesan cadangan jika JavaScript mati
 - Tampilan responsif untuk HP dan komputer
 
+**🆕 Fitur Baru (v2.0)**
+- **PWA (Progressive Web App)**: Installable, bekerja offline, manifest.json, Service Worker
+- **Multi-bahasa**: Indonesia/English dengan toggle di header, tersimpan di localStorage
+- **Sistem Loyalitas & Referral**: Poin per belanja, tukar hadiah (diskon, upgrade ekspres, cuci gratis), kode referral
+- **Prompt Install**: Undang pengguna memasang aplikasi ke layar utama
+- **Deteksi Online/Offline**: Indikator visual saat offline, sinkron otomatis saat online kembali
+- **SEO & Structured Data**: JSON-LD LocalBusiness, Open Graph, Twitter Cards, sitemap-ready
+- **Aksesibilitas**: ARIA labels, keyboard navigation, reduced motion support, focus visible
+
 ## Fitur untuk pemilik (admin)
 
 Buka `admin.html` untuk:
@@ -38,12 +47,16 @@ Buka `admin.html` untuk:
 
 ## Teknologi
 
-HTML, CSS, dan JavaScript. Data pesanan, keranjang, booking, ulasan, transaksi, dan tema disimpan dengan `localStorage`.
+HTML, CSS, dan JavaScript. Data pesanan, keranjang, booking, ulasan, transaksi, tema, bahasa, loyalitas, dan referral disimpan dengan `localStorage`.
+
+Service Worker (`sw.js`) untuk caching offline dan PWA.
+Manifest (`manifest.json`) untuk installability.
 
 ## Cara menjalankan
 
 1. Unduh atau clone repositori ini.
 2. Buka `index.html` di browser.
+3. Untuk development: gunakan local server (mis. `npx serve` atau VS Code Live Server) agar Service Worker berfungsi.
 
 ## Struktur file
 
@@ -51,7 +64,9 @@ HTML, CSS, dan JavaScript. Data pesanan, keranjang, booking, ulasan, transaksi, 
 - `admin.html`: halaman admin booking dan transaksi
 - `404.html`: halaman tidak ditemukan
 - `style.css`: tampilan
-- `script.js`: kalkulator, keranjang, booking, pesanan, lacak status, ulasan, tema, dan animasi
+- `script.js`: kalkulator, keranjang, booking, pesanan, lacak status, ulasan, tema, animasi, PWA, i18n, loyalitas
+- `sw.js`: Service Worker untuk offline caching
+- `manifest.json`: PWA manifest
 - `robots.txt`: pengaturan penelusuran mesin pencari
 - `.gitignore`: daftar file yang tidak diunggah ke Git
 - `LICENSE`: lisensi MIT
@@ -62,12 +77,14 @@ HTML, CSS, dan JavaScript. Data pesanan, keranjang, booking, ulasan, transaksi, 
 - Nomor WhatsApp ada di `script.js` (variabel `WA`) dan di `index.html` (tautan `wa.me`). Gunakan format `62...` tanpa angka 0 di depan dan tanpa tanda `+`.
 - Kode promo ada di objek `PROMO`, dan harga paket di objek `PAKET`, keduanya di `script.js`.
 - Jam buka untuk penanda buka/tutup ada di bagian bawah `script.js`.
+- **🆕 Teks UI**: Semua teks kini di objek `I18N` di `script.js` (ID & EN).
+- **🆕 Loyalitas**: Konfigurasi poin & hadiah di objek `LOYALTY` di `script.js`.
 
 ## Catatan
 
 - Pelacakan status hanya simulasi di sisi browser.
-- Data booking, ulasan, keranjang, dan transaksi tersimpan per browser dan perangkat, belum tersambung antar-perangkat. Halaman admin juga belum memakai password. Untuk pemakaian sungguhan dibutuhkan server dan database.
-- Rencana berikutnya: login admin dan penyimpanan data di server.
+- Data booking, ulasan, keranjang, transaksi, loyalitas, dan referral tersimpan per browser dan perangkat, belum tersambung antar-perangkat. Halaman admin juga belum memakai password. Untuk pemakaian sungguhan dibutuhkan server dan database.
+- Rencana berikutnya: login admin, penyimpanan data di server, notifikasi push, sinkron multi-perangkat.
 
 ## Kontribusi
 

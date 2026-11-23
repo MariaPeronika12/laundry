@@ -1,0 +1,45 @@
+{
+  "name": "Bilas Laundry",
+  "short_name": "Bilas",
+  "description": "Cuci, setrika, antar-jemput. Hitung biaya dan pesan lewat WhatsApp.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FFF5F8",
+  "theme_color": "#D6336C",
+  "orientation": "portrait-primary",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧺</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["shopping", "lifestyle", "business"],
+  "shortcuts": [
+    {
+      "name": "Hitung Biaya",
+      "short_name": "Hitung",
+      "description": "Buka kalkulator biaya cucian",
+      "url": "./index.html#hitung",
+      "icons": [{ "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>" }]
+    },
+    {
+      "name": "Booking Jemput",
+      "short_name": "Booking",
+      "description": "Jadwalkan penjemputan cucian",
+      "url": "./index.html#booking",
+      "icons": [{ "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📅</text></svg>" }]
+    },
+    {
+      "name": "Lacak Cucian",
+      "short_name": "Lacak",
+      "description": "Cek status pesanan",
+      "url": "./index.html#lacak",
+      "icons": [{ "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>" }]
+    }
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false
+}
