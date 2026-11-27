@@ -107,10 +107,9 @@
   var h1=document.querySelector(".hero h1");
   if(!h1)return;
   var p=document.createElement("p");
-  p.textContent=salam+"! Cucian menumpuk? Serahkan pada kami.";
-  p.style.cssText="margin:0 0 12px;font-weight:600;color:var(--teal)";
-  var anchor=h1.parentNode.querySelector(".eyebrow")||h1;
-  anchor.parentNode.insertBefore(p,anchor);
+  p.textContent=salam+"! Cucian menumpuk? Serahkan pada Bilas Laundry.";
+  p.style.cssText="margin:0 0 10px;font-weight:600;color:var(--teal)";
+  h1.parentNode.insertBefore(p,h1);
 })();
 
 /* Booking jemput cucian (disimpan di browser, lalu dikirim lewat WhatsApp) */
@@ -307,4 +306,21 @@
     var t=e.target.tagName;
     if(e.key=="/"&&t!="INPUT"&&t!="TEXTAREA"&&t!="SELECT"){e.preventDefault();c.focus();c.scrollIntoView({behavior:"smooth",block:"center"})}
   });
+})();
+
+/* Ingat pilihan terakhir di kalkulator */
+(function(){
+  var K="bilas_kalkulator",l=document.getElementById("layanan"),b=document.getElementById("berat"),a=document.getElementById("antar");
+  if(!l||!b||!a)return;
+  try{
+    var s=JSON.parse(localStorage.getItem(K));
+    if(s){
+      l.selectedIndex=Math.min(l.options.length-1,Math.max(0,s.l|0));
+      if(s.b!=null)b.value=s.b;
+      a.checked=!!s.a;
+      l.dispatchEvent(new Event("input"));
+    }
+  }catch(e){}
+  function simpan(){try{localStorage.setItem(K,JSON.stringify({l:l.selectedIndex,b:b.value,a:a.checked}))}catch(e){}}
+  [l,b,a].forEach(function(x){x.addEventListener("input",simpan);x.addEventListener("change",simpan)});
 })();
