@@ -2,6 +2,13 @@
 
 Semua perubahan penting pada proyek Bilas Laundry dicatat di sini.
 
+## Versi 3.1 – Peta dan penyempurnaan
+- Tambah peta Google Maps di bagian kontak
+- Tambah tombol bagikan situs dan pintasan keyboard / untuk cari FAQ
+- Kalkulator mengingat pilihan terakhir pengunjung
+- Perjelas subjudul layanan dan petunjuk kolom kode pelacakan
+- Rapikan struktur repositori menjadi satu set file di akar
+
 ## Versi 3 – Keranjang, paket, dan ulasan
 - Tambah keranjang pesanan dengan kode promo
 - Tambah paket langganan dan rekomendasi paket berdasarkan kg per bulan
