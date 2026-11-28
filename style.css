@@ -1,7 +1,7 @@
 /* Bilas Laundry – style.css: warna memakai variabel di :root */
 :root{
-  --bg:#FFF5F8;--surface:#FFFFFF;--ink:#3B1230;--muted:#7A5568;--line:#F5D0DE;
-  --teal:#D6336C;--teal-ink:#FFFFFF;--sun:#FFC93C;--sun-ink:#3B1230;--wash:#FFE3EC;
+  --bg:#FFE9F1;--surface:#FFFFFF;--ink:#3B1230;--muted:#7A5568;--line:#F3B5CE;
+  --teal:#D6336C;--teal-ink:#FFFFFF;--sun:#FFC93C;--sun-ink:#3B1230;--wash:#FFD3E4;
   box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
